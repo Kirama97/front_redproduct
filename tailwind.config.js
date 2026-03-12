@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors : {
-
+        primaire: '#494C4F',
       },
       fontFamily :{
 
@@ -16,7 +16,7 @@ export default {
 
       },
       margin : {
-        
+
       }
     },
   },
