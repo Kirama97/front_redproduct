@@ -2,8 +2,8 @@ import React from 'react'
 
 const Accueil = () => {
   return (
-    <div>
-      
+    <div c>
+       <h1>accueil</h1>
     </div>
   )
 }
