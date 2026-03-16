@@ -1,5 +1,5 @@
 import React from "react";
-import AuthProvider from "./authContext";
+import AuthProvider from "./AuthContext";
 import HotelProvider from "./HotelContext";
 
 const AppProvider = ({ children }) => {
