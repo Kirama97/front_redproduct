@@ -2,7 +2,7 @@ import React from "react";
 
 const Notification = () => {
   return (
-    <div className="absolute top-[60px] right-[20px] w-80 rounded-lg bg-white shadow-lg border border-neutral-200">
+    <div className="absolute top-[60px] z-50 right-[20px] w-80 rounded-lg bg-white shadow-lg border border-neutral-200">
 
       {/* HEADER */}
       <div className="border-b px-4 py-2">

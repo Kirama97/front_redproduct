@@ -1,81 +1,115 @@
-import React from 'react'
-import image_bg from '../../assets/images/red-bg.png'
-import logo from '../../assets/icone/logo.png'
+import React from "react";
+import image_bg from "../../assets/images/red-bg.png";
+import logo from "../../assets/icone/logo.png";
 import { CiUser } from "react-icons/ci";
-
-import { NavLink } from 'react-router';
+import { NavLink } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { FaHotel } from "react-icons/fa";
 
-
-const SideBar = () => {
-
+const SideBar = ({ showSideBar ,setShowSideBar }) => {
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-2 px-2 py-2 text-xs
+    `flex items-center gap-3 px-4 py-2 text-sm rounded-md transition-all
      ${
        isActive
-         ? "bg-white text-neutral-500"
-         : "text-white hover:text-yellow-500"
+         ? "bg-white text-neutral-700 font-medium"
+         : "text-white hover:bg-white/20 hover:text-yellow-400"
      }`;
 
   return (
-   
-<div
- style={{ backgroundImage :`url(${image_bg})`}} 
- className="slide_barre z-40 bg-white w-1/6 md:flex  md:h-screen  flex-col justify-between bg-center ">
-      
-    <div className="slide_top ">
-        <div className="flex gap-3 items-center mb-5 px-2 py-5 ">
-            <img src={logo} className='w-5 h-5' alt="logo" />
-            <h1 className="text-white text-xs sm:text-md font-bold">RED PRODUCT</h1> 
-        </div>
-         {/* menu */}
+    <>
+      {/* DESKTOP */}
+      <div
+        style={{ backgroundImage: `url(${image_bg})` }}
+        className="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col justify-between bg-center bg-cover z-40"
+      >
+        {/* TOP */}
         <div>
-            <p className=" text-neutral-400 text-[12px] md:text-xs mb-3 px-2 ">Principal</p>
-
-            <nav className='flex flex-col items-justify-center text-md '>
-                <NavLink to="/dashboard" className={linkClass}>
-                    <MdDashboard size={15} />
-                   <p> Dashboard</p>
-                 </NavLink>
-                <NavLink to="/hotels" className={linkClass}>
-                   <FaHotel size={15}  />
-                   <p>Liste des hotels </p>
-                    </NavLink>
-            </nav>
-        </div> 
-     </div>
-        {/* footer */}
-       <div className="slide_bottom px-3 pb-10 pt-4 border-t border-neutral-500">
-
-        <div className="flex items-center gap-3">
-
-          <NavLink to="/profil" className="flex items-center group hover:bg-yellow-400 justify-center bg-white p-2 rounded-full duration-150 ease-linear cursor-pointer">
-              <CiUser size={15} className='group-hover:text-white'  />
-          </NavLink >
-          <div>
-            <p className="text-[12px] text-neutral-200">
-              Admin
-            </p>
-            
-            <p className="flex gap-2 items-center text-[10px] text-neutral-400">
-              <span className="rounded-full block w-2 h-2 bg-green-600"></span>
-              En ligne
-            </p>
-
+          <div className="flex items-center gap-3 px-4 py-6">
+            <img src={logo} className="w-6 h-6" alt="logo" />
+            <h1 className="text-white text-lg font-bold">RED PRODUCT</h1>
           </div>
 
+          {/* MENU */}
+          <div>
+            <p className="text-neutral-300 text-xs mb-3 px-4">
+              Principal
+            </p>
+
+            <nav className="flex flex-col gap-2">
+              <NavLink to="/dashboard" className={linkClass}>
+                <MdDashboard size={18} />
+                Dashboard
+              </NavLink>
+
+              <NavLink to="/hotels" className={linkClass}>
+                <FaHotel size={18} />
+                Liste des hôtels
+              </NavLink>
+            </nav>
+          </div>
         </div>
 
+        {/* FOOTER */}
+        <div className="px-4 py-4 border-t border-white/20">
+          <div className="flex items-center gap-3">
+            <NavLink
+              to="/profil"
+              className="flex items-center justify-center bg-white p-2 rounded-full hover:bg-yellow-400 transition"
+            >
+              <CiUser size={18} />
+            </NavLink>
+
+            <div>
+              <p className="text-sm text-white">Admin</p>
+              <p className="flex items-center gap-2 text-xs text-neutral-300">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                En ligne
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* MOBILE */}
+      <div
+        style={{ backgroundImage: `url(${image_bg})` }}
+        className={`fixed top-0 left-0 h-screen w-64 bg-cover bg-center z-50 transform transition-transform duration-300 md:hidden
+        ${showSideBar ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        {/* TOP */}
+        <div className="flex items-center gap-3 px-4 py-6">
+          <img src={logo} className="w-6 h-6" alt="logo" />
+          <h1 className="text-white text-lg font-bold">RED PRODUCT</h1>
+        </div>
 
+        {/* MENU */}
+        <div>
+          <p className="text-neutral-300 text-sm mb-4 px-4">
+            Principal
+          </p>
 
-</div>
- 
-  
+          <nav className="flex flex-col gap-3">
+            <NavLink to="/dashboard" className={linkClass} onClick={() => setShowSideBar(false)}>
+              <MdDashboard size={20} />
+              Dashboard
+            </NavLink>
 
-  )
-}
+            <NavLink to="/hotels" className={linkClass} onClick={() => setShowSideBar(false)}>
+              <FaHotel size={20} />
+              Liste des hôtels
+            </NavLink>
+          </nav>
+        </div>
+      </div>
 
-export default SideBar
+      {/* OVERLAY MOBILE */}
+        {showSideBar && (
+        <div
+          onClick={() => setShowSideBar(false)}
+          className="fixed inset-0 bg-black/40 z-30 md:hidden"></div>
+      )}
+    </>
+  );
+};
+
+export default SideBar;

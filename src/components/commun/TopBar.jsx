@@ -5,17 +5,24 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from 'react-router';
 import Notification from './../Notification';
+import { RiMenu2Fill } from "react-icons/ri";
 
 
-const TopBar = () => {
+const TopBar = ({showSideBar ,setShowSideBar}) => {
      const Navigate = useNavigate()
      const [showNotification , setShowNotification] = useState(false)
   return (
     <div className="w-full h-[8vh] bg-white flex items-center justify-between px-5 shadow-sm">
-        <h1 className='text-sm font-semibold '>Dashbord</h1>  
+        <div className="flex items-center gap-5">
+          <RiMenu2Fill size={20}
+           onClick={() => setShowSideBar(!showSideBar)}
+           className='min-sm:hidden'
+           />
+          <h1 className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
+        </div>
         <div className="flex items-center gap-2">
             {/* rechercher */}
-           <div className="flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
+           <div className=" hidden sm:flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
                 <CiSearch size={12} />
                 <input 
                 type="text"
