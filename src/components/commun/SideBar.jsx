@@ -57,7 +57,7 @@ const SideBar = () => {
             <p className="text-[12px] text-neutral-200">
               Admin
             </p>
-
+            
             <p className="flex gap-2 items-center text-[10px] text-neutral-400">
               <span className="rounded-full block w-2 h-2 bg-green-600"></span>
               En ligne

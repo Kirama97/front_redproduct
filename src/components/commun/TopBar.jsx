@@ -12,10 +12,10 @@ const TopBar = () => {
      const [showNotification , setShowNotification] = useState(false)
   return (
     <div className="w-full h-[8vh] bg-white flex items-center justify-between px-5 shadow-sm">
-        <h1 className='text-sm '>Dashbord</h1>  
+        <h1 className='text-sm font-semibold '>Dashbord</h1>  
         <div className="flex items-center gap-2">
             {/* rechercher */}
-           <div className="flex items-center gap-2 border px-2 rounded-xl focus-within:ring-1 focus-within:ring-yellow-400">
+           <div className="flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
                 <CiSearch size={12} />
                 <input 
                 type="text"
