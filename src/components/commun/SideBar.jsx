@@ -8,7 +8,7 @@ import { FaHotel } from "react-icons/fa";
 
 const SideBar = ({ showSideBar ,setShowSideBar }) => {
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-2 text-sm rounded-md transition-all
+    `flex items-center gap-3 px-4 py-2 text-sm transition-all
      ${
        isActive
          ? "bg-white text-neutral-700 font-medium"
@@ -20,13 +20,13 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
       {/* DESKTOP */}
       <div
         style={{ backgroundImage: `url(${image_bg})` }}
-        className="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col justify-between bg-center bg-cover z-40"
+        className="hidden md:flex  h-screen w-1/6 flex-col justify-between bg-center bg-cover z-40"
       >
         {/* TOP */}
         <div>
           <div className="flex items-center gap-3 px-4 py-6">
             <img src={logo} className="w-6 h-6" alt="logo" />
-            <h1 className="text-white text-lg font-bold">RED PRODUCT</h1>
+            <h1 className="text-white text-xs font-bold">RED PRODUCT</h1>
           </div>
 
           {/* MENU */}
@@ -35,14 +35,14 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
               Principal
             </p>
 
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col ">
               <NavLink to="/dashboard" className={linkClass}>
-                <MdDashboard size={18} />
+                <MdDashboard size={15} />
                 Dashboard
               </NavLink>
 
               <NavLink to="/hotels" className={linkClass}>
-                <FaHotel size={18} />
+                <FaHotel size={15} />
                 Liste des hôtels
               </NavLink>
             </nav>

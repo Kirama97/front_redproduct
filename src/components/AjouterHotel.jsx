@@ -106,7 +106,7 @@ const AjouterHotel = ({ setShowAddHotel, onSave }) => {
   };
 
   return (
-    <div className="absolute inset-0   max-h-screen  bg-neutral-400/20 py-2 sm:py-8 px-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div className="absolute inset-0 max-h-screen  bg-neutral-400/20 py-2 sm:py-0 px-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
       <div className="max-w-2xl  mx-auto bg-white rounded-2xl overflow-hidden">
         
       
@@ -128,7 +128,7 @@ const AjouterHotel = ({ setShowAddHotel, onSave }) => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-4 space-y-4">
+          <form onSubmit={handleSubmit} className="h-[70vh] overflow-y-auto p-4 space-y-4">
             
           
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -264,7 +264,7 @@ const AjouterHotel = ({ setShowAddHotel, onSave }) => {
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-end pt-4">
+            <div className="flex justify-end">
               <button
                 type="submit"
                 disabled={loading}

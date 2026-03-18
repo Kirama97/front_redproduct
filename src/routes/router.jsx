@@ -10,7 +10,7 @@ import DetailHotel from "../app/pages/DetailHotel";
 
 
 
-export const Router = createBrowserRouter([
+export const router = createBrowserRouter([
 
 
   { path: "/", element: <Connexion /> },

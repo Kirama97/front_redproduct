@@ -16,9 +16,9 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
         <div className="flex items-center gap-5">
           <RiMenu2Fill size={20}
            onClick={() => setShowSideBar(!showSideBar)}
-           className='min-sm:hidden'
+           className='sm:hidden'
            />
-          <h1 className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
+          <h1 onClick={() => Navigate("/dashboard")} className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
         </div>
         <div className="flex items-center gap-2">
             {/* rechercher */}

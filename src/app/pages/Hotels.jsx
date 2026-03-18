@@ -12,7 +12,7 @@ const Hotels = () => {
   
     
   return (
-    <div className='relative '>
+    <div className='relative overflow-hidden'>
          {/* top */}
        <div className="flex items-center justify-between bg-neutral-50 px-5 py-3">
           <div className="flex items-center gap-2">
@@ -24,7 +24,7 @@ const Hotels = () => {
        </div>
        {/* galeri hotel */}
 
-        <div className="p-5 overflow-y-scroll  h-[86vh]  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-10">
+        <div className="p-5 overflow-y-scroll h-[86vh] sm:h-[84vh]  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-10">
             {
                hotels.map((hotel) => (
                    <HotelItem hotel={hotel} key={hotel.id} />
