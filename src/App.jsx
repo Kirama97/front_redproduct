@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppProvider from "./context/AppProvider";
-import { router } from "./routes/Router";
+import { Router } from "./routes/Router";
 
 function App() {
 
   return (
     <AppProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={Router} />
     </AppProvider>
   );
 }

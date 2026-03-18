@@ -3,14 +3,14 @@ import Connexion from "../app/pages/Connexion";
 import Inscription from "../app/pages/Inscription";
 import Accueil from "../app/pages/Accueil";
 import MainLayout from "../app/layout/MainLayout";
-import Hotels from './../app/pages/Hotels';
+import Hotels from '../app/pages/Hotels';
 import Profil from "../app/pages/Profil";
 import DetailHotel from "../app/pages/DetailHotel";
 
 
 
 
-export const router = createBrowserRouter([
+export const Router = createBrowserRouter([
 
 
   { path: "/", element: <Connexion /> },
