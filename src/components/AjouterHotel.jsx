@@ -106,7 +106,7 @@ const AjouterHotel = ({ setShowAddHotel, onSave }) => {
   };
 
   return (
-    <div className="absolute inset-0 max-h-screen  bg-neutral-400/20 py-2 sm:py-0 px-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div className="absolute inset-0 max-h-screen bg-neutral-400/50  sm:bg-neutral-400/40 py-2 sm:py-0 px-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
       <div className="max-w-2xl  mx-auto bg-white rounded-2xl overflow-hidden">
         
       

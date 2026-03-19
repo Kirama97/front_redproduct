@@ -41,13 +41,7 @@ export const hotels = [
     prix: "18000",
     image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461"
   },
-  {
-    id: 7,
-    localisation: "Popenguine",
-    titre: "Hotel Popenguine Beach",
-    prix: "22000",
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210e1"
-  },
+ 
   {
     id: 8,
     localisation: "Somone",

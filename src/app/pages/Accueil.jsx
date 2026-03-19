@@ -17,7 +17,7 @@ const Accueil = () => {
         
          {/* dash */}
 
-        <div className="p-5 grid  grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="px-5 pt-5 pb-20 max-sm:h-[80vh] overflow-y-auto grid  grid-cols-1 md:grid-cols-3 gap-5">
              {/* 1 */}
               <div className="p-4 flex  gap-5 bg-white rounded-lg group shadow-sm cursor-pointer hover:shadow-md hover:translate-y-1 hover:scale-105 duration-150 ease-out ">
 

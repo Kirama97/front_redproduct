@@ -2,20 +2,46 @@ import React, { useState } from 'react'
 import image_bg from '../../assets/images/red-bg.png'
 import logo from '../../assets/icone/logo.png'
 import { NavLink, useNavigate } from 'react-router'
+import toast from 'react-hot-toast'
 
 
 const Inscription = () => {
 
     const [email , setEmail] = useState()
-    const [password , setPaswword] = useState()
+    const [password , setPassword] = useState()
+    const [nom , setNom] = useState()
     const [error , setError] = useState()
     const [loading , setLoading] = useState()
     const navigate = useNavigate()
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     const handleRegister = async (e) => {
         e.preventDefault()
+        setLoading(true)
 
-        navigate("/accueil");
+        setError("")
+
+        if(!nom){
+            toast.error('Veuillez mettre un nom')
+             setError("Adresse email invalide");
+                return ; 
+        }
+
+        if(!email || !password || !nom){
+            toast.error('Veuillez remplir tout les champs')
+             
+                return ; 
+        }
+        if(emailRegex.test(email)){
+            toast.error("Adresse email invalide");
+            setError("Adresse email invalide");
+            return;
+        }
+
+        setTimeout(() => {
+            navigate("/dashboard");
+        } , 1000)
+       
 
 
 
@@ -42,17 +68,63 @@ const Inscription = () => {
           
   
               <form onSubmit={handleRegister} className="flex flex-col gap-2 py-2">
-                  <input className="w-full text-xs outline-none py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 border-neutral-300" type="text" name="password" placeholder="Nom" required />
-                  <input className="w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 border-neutral-300" type="email" name="email" placeholder="E-mail" required />
+                {/* nom */}
+                  <input 
+                    className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                        error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
+                    }`} 
+                    type="text" 
+                    name="password" 
+                    placeholder="Nom" 
+                    value={nom}
+                    onChange={(e) => setNom(e.target.value)}
+                    required />
+                      {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+
+                   {/* email */}
+                  <input 
+                    className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                        error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
+                    }`} 
+                    type="email" 
+                    name="email" 
+                    placeholder="E-mail" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required />
+                     {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+
+                  {/* password */}
+                  <input
+                     className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                        error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
+                    }`} 
+                     type="password" 
+                     name="password" 
+                     placeholder="Mot de passe" 
+                     value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                     required />
+                       {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
                   
-                  <input className="w-full text-xs outline-none py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 border-neutral-300" type="password" name="password" placeholder="Mot de passe" required />
-                  
-                  <div className="flex gap-2 mt-5">
-                      <input type="checkbox"/>
-                      <p className="text-xs text-neutral-700">Gardez-moi connecté</p>
-                  </div>
+                    <div className="flex gap-2 mt-5">
+                        <input type="checkbox"/>
+                        <p className="text-xs text-neutral-700">Gardez-moi connecté</p>
+                    </div>
   
-                  <button type="submit"  className="bg-neutral-800 py-2 rounded-lg mt-5 text-white cursor-pointer text-xs hover:bg-neutral-900">Se connecter</button>
+                   {
+                    loading ? 
+                    (
+                        <button dis  className="bg-neutral-500 py-2 rounded-lg mt-5 flex items-center justify-center gap-2 text-white cursor-pointer text-xs ">
+                            <div className=" w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                             inscription...
+                            </button>
+                    )
+                     :(
+                        <button type="submit"  className="bg-neutral-800 py-2 rounded-lg mt-5 text-white cursor-pointer text-xs hover:bg-neutral-900">S'inscrire</button>
+                    ) 
+                    
+                }
               </form>
           </div>
   

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiUser, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 const Profile = () => {
-  // Données simulées (à remplacer par API plus tard)
+ 
   const [user] = useState({
     nom: "Thiam",
     prenom: "Mouhamet",
@@ -15,7 +15,7 @@ const Profile = () => {
   return (
     <div className="max-h-screen bg-gray-50 flex items-center justify-center px-4">
       
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-6">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-6 max-sm:mt-10">
         
         {/* PHOTO */}
         <div className="flex flex-col items-center">

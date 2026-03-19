@@ -35,17 +35,19 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
               onClick={() => setShowNotification(!showNotification)}
                className="relative cursor-pointer"
               >
-                <IoMdNotificationsOutline />
+                <IoMdNotificationsOutline className='text-xl sm:text-lg' />
                 <span className='absolute top-[-8px] right-[-8px] text-[8px] bg-yellow-400 text-white px-1 rounded-md'>2</span>
               
             </div>
             {/* profil */}
-            <div onClick={() => Navigate('/profil')} className="relative  w-5 h-5 rounded-full mx-2 cursor-pointer">
+            <div onClick={() => Navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">
                  <img src={profil_img} className='w-full h-full rounded-full' alt="profil"  />
                  <span className='absolute bottom-[-1px] right-[-1px] rounded-full z-50 w-[5px] h-[5px]  bg-green-600'></span>
             </div>
             {/* logout */}
-              <MdOutlineLogout className='hover:text-yellow-500 cursor-pointer' />
+              <MdOutlineLogout
+               onClick={() => Navigate("/connexion")}
+               className='text-xl sm:text-lg hover:text-yellow-500 cursor-pointer' />
 
             {/* notification */}
              {
