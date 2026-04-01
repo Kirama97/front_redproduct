@@ -11,7 +11,7 @@ const Hotels = () => {
   const { hotels , loading } = useHotels()
    const [ShowAddHotel ,setShowAddHotel] = useState(false)
    const [showRecherche ,setShowRecherche] = useState(false)
-   const liste_des_hotels =  hotels.results
+
    
   
   if (loading) {
@@ -25,7 +25,7 @@ const Hotels = () => {
     );
   }
 
-  if (!liste_des_hotels) {
+  if (!hotels) {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
@@ -58,7 +58,7 @@ const Hotels = () => {
 
         <div className="px-5 pt-5  pb-[100px] overflow-y-scroll h-[86vh] sm:h-[84vh]  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-10">
             {
-               liste_des_hotels.map((hotel) => (
+               hotels.map((hotel) => (
                    <HotelItem hotel={hotel} key={hotel.id} />
                ))
             }

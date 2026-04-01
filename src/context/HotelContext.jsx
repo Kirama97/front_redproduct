@@ -14,12 +14,16 @@ const HotelProvider = ({ children }) => {
     if (!token) return;
 
     setLoading(true);
+    setError(null);
     try {
       const reponse = await api.get("/hotels/");
-      setHotels(reponse.data);
-    } catch (error) {
-      console.error(error);
-      setError(error);
+
+      const data = reponse.data;
+      setHotels(data.results ?? data);
+
+    } catch (err) {
+      console.error("Erreur fetchHotels :", err);
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -29,15 +33,11 @@ const HotelProvider = ({ children }) => {
     fetchHotels();
   }, [fetchHotels]);
 
-
-  console.log('les hotels :' , hotels)
-
-
   const value = {
     hotels,
     loading,
     error,
-    refreshHotels: fetchHotels, 
+    refreshHotels: fetchHotels,
   };
 
   return (
