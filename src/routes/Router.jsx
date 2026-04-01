@@ -6,6 +6,9 @@ import MainLayout from "../app/layout/MainLayout";
 import Hotels from '../app/pages/Hotels';
 import Profil from "../app/pages/Profil";
 import DetailHotel from "../app/pages/DetailHotel";
+import AppProvider from './../context/AppProvider';
+
+
 
 
 
@@ -17,7 +20,11 @@ export const Router = createBrowserRouter([
   { path: "/connexion", element: <Connexion /> },
   { path: "/inscription", element: <Inscription /> },
    {
-     element: <MainLayout/> , 
+     element: 
+    
+        <MainLayout />
+     
+     , 
      children : [
         { path: "/dashboard", element: <Accueil /> },
         { path: "/hotels", element: <Hotels /> },

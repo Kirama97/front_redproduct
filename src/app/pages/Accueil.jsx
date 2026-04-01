@@ -1,10 +1,17 @@
 import React from 'react'
 import { FaUserFriends } from "react-icons/fa";
 import { FaEnvelopeOpen } from "react-icons/fa6";
+import { useAuth } from '../../context/AuthContext';
+import { useHotels } from '../../context/HotelContext';
 
 
 
 const Accueil = () => {
+   const { utilisateurs} = useAuth()
+   const  { hotels} = useHotels()
+
+  
+    
   return (
     <div className=''>
        {/* top */}
@@ -63,7 +70,7 @@ const Accueil = () => {
                  
                   <div className="">
                      <h4 className='text-neutral-600'>
-                      <span className='text-xl mr-2 font-semibold group-hover:text-[#FCC100] '>600</span> 
+                      <span className='text-xl mr-2 font-semibold group-hover:text-[#FCC100] '>{utilisateurs.count}</span> 
                        Utilisateurs
                     </h4>
                     <p className='text-xs text-zinc-600'>je ne sais pas quoi mettre</p>
@@ -97,7 +104,7 @@ const Accueil = () => {
 
                   <div className="">
                      <h4 className='text-neutral-600'>
-                      <span className='text-xl mr-2 font-semibold group-hover:text-[#9C27B0]'>40</span> 
+                      <span className='text-xl mr-2 font-semibold group-hover:text-[#9C27B0]'>{hotels.count}</span> 
                        Hotels
                     </h4>
                     <p className='text-xs text-zinc-600'>je ne sais pas quoi mettre</p>

@@ -4,13 +4,42 @@ import AjouterHotel from '../../components/AjouterHotel';
 import { hotels } from '../../hook/bd';
 import { CiSearch } from "react-icons/ci";
 import Recherche from './Recherche';
+import { useHotels } from '../../context/HotelContext';
 
 
 const Hotels = () => {
+  const { hotels , loading } = useHotels()
    const [ShowAddHotel ,setShowAddHotel] = useState(false)
    const [showRecherche ,setShowRecherche] = useState(false)
+   const liste_des_hotels =  hotels.results
+   
+  
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="w-10 sm:w-16 h-10 sm:h-16 border-2 border-orange-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-600 font-medium  sm:text-xs text-md">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
 
-
+  if (!liste_des_hotels) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <p className="text-xl font-bold text-gray-900 mb-4">Produit introuvable</p>
+          <button
+            onClick={() => navigate(-1)}
+            className="px-6 py-3 bg-orange-400 text-white rounded-xl font-bold hover:bg-orange-500 transition"
+          >
+            Retour
+          </button>
+        </div>
+      </div>
+    );
+  }
   
   
     
@@ -29,7 +58,7 @@ const Hotels = () => {
 
         <div className="px-5 pt-5  pb-[100px] overflow-y-scroll h-[86vh] sm:h-[84vh]  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-10">
             {
-               hotels.map((hotel) => (
+               liste_des_hotels.map((hotel) => (
                    <HotelItem hotel={hotel} key={hotel.id} />
                ))
             }

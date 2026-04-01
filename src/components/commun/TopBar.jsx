@@ -6,11 +6,23 @@ import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from 'react-router';
 import Notification from './../Notification';
 import { RiMenu2Fill } from "react-icons/ri";
+import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
+
+
 
 
 const TopBar = ({showSideBar ,setShowSideBar}) => {
-     const Navigate = useNavigate()
+     const {logout } = useAuth()
+     const navigate = useNavigate();
      const [showNotification , setShowNotification] = useState(false)
+
+
+      const handleLogout = async () => {
+      await logout();
+      navigate("/connexion" ,{ replace : true});
+      toast.success('A Bientot')
+      };
   return (
     <div className="w-full h-[8vh] bg-white flex items-center justify-between px-5 shadow-sm">
         <div className="flex items-center gap-5">
@@ -18,7 +30,7 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
            onClick={() => setShowSideBar(!showSideBar)}
            className='sm:hidden'
            />
-          <h1 onClick={() => Navigate("/dashboard")} className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
+          <h1 onClick={() => navigate("/dashboard")} className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
         </div>
         <div className="flex items-center gap-2">
             {/* rechercher */}
@@ -40,13 +52,14 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
               
             </div>
             {/* profil */}
-            <div onClick={() => Navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">
+            <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">
                  <img src={profil_img} className='w-full h-full rounded-full' alt="profil"  />
                  <span className='absolute bottom-[-1px] right-[-1px] rounded-full z-50 w-[5px] h-[5px]  bg-green-600'></span>
             </div>
             {/* logout */}
               <MdOutlineLogout
-               onClick={() => Navigate("/connexion")}
+               onClick={() => handleLogout()}
+               title='Deconnexion'
                className='text-xl sm:text-lg hover:text-yellow-500 cursor-pointer' />
 
             {/* notification */}

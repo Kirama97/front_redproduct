@@ -3,47 +3,60 @@ import image_bg from '../../assets/images/red-bg.png'
 import logo from '../../assets/icone/logo.png'
 import { NavLink, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
+import { useAuth } from '../../context/AuthContext';
+
 
 
 const Inscription = () => {
-
+    const { register, loading } = useAuth()
     const [email , setEmail] = useState()
     const [password , setPassword] = useState()
+    const [password2 , setPassword2] = useState()
     const [nom , setNom] = useState()
     const [error , setError] = useState()
-    const [loading , setLoading] = useState()
     const navigate = useNavigate()
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        setLoading(true)
+      
 
         setError("")
 
-        if(!nom){
-            toast.error('Veuillez mettre un nom')
-             setError("Adresse email invalide");
-                return ; 
-        }
+        // if(!nom){
+        //     toast.error('Veuillez mettre un nom')
+        //      setError("Adresse email invalide");
+        //         return ; 
+        // }
 
-        if(!email || !password || !nom){
-            toast.error('Veuillez remplir tout les champs')
+        // if(!email || !password || !nom){
+        //     toast.error('Veuillez remplir tout les champs')
              
-                return ; 
-        }
-        if(emailRegex.test(email)){
-            toast.error("Adresse email invalide");
-            setError("Adresse email invalide");
-            return;
-        }
-
-        setTimeout(() => {
-            navigate("/dashboard");
-        } , 1000)
-       
+        //         return ; 
+        // }
+        // if(emailRegex.test(email)){
+        //     toast.error("Adresse email invalide");
+        //     setError("Adresse email invalide");
+        //     return;
+        // }
 
 
+        try {
+           
+      const inscription = await register({
+          username:nom,
+          email,
+          password});
+
+      if (inscription.success) {
+        navigate("/connexion");
+        toast.success("inscription réussie");
+      } else {
+        toast.error(connexion.message);
+      }
+    } catch (error) {
+      toast.error("Email ou mot de passe incorrect");
+    }
 
 
     }
@@ -74,7 +87,7 @@ const Inscription = () => {
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                     type="text" 
-                    name="password" 
+                    name="nom" 
                     placeholder="Nom" 
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
