@@ -16,6 +16,8 @@ import {
 } from "react-icons/fi";
 import { FaParking, FaSwimmingPool, FaDumbbell } from "react-icons/fa";
 import toast from "react-hot-toast";
+import Option from "../../components/Option";
+
 
 const DetailHotel = () => {
   const { id } = useParams();
@@ -134,7 +136,7 @@ const DetailHotel = () => {
   }
 
   return (
-    <div className="  bg-gray-50">
+    <div className=" relative  bg-gray-50">
       <div className="sticky top-0 z-40 bg-white shadow-sm">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -317,6 +319,8 @@ const DetailHotel = () => {
       
      
       </div>
+         
+         <Option id={id}/>
     </div>
   );
 };
