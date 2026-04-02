@@ -5,7 +5,7 @@ import api from "../services/api";
 import { useHotels } from "../context/HotelContext";
 import EditeForm from './EditeForm';
 
-const EditeForm = ({ setShowAddHotel }) => {
+const EditeForm = ({ setShowEdite , showEdite }) => {
   
   const { refreshHotels } = useHotels(); 
 
@@ -88,7 +88,7 @@ const EditeForm = ({ setShowAddHotel }) => {
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-300">
             <button
-              onClick={() => setShowAddHotel(false)}
+              onClick={() => setShowEdite(false)}
               className="flex items-center gap-2 text-gray-600 hover:text-yellow-400 transition-colors mb-3"
             >
               <FiArrowLeft size={18} />

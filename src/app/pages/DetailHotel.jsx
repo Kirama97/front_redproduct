@@ -17,6 +17,7 @@ import {
 import { FaParking, FaSwimmingPool, FaDumbbell } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Option from "../../components/Option";
+import EditeForm from './../../components/EditeForm';
 
 
 const DetailHotel = () => {
@@ -27,6 +28,9 @@ const DetailHotel = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [showEdite, setShowEdite ] = useState(false);
+
+  
 
   // Scroll to top
   useEffect(() => {
@@ -320,7 +324,8 @@ const DetailHotel = () => {
      
       </div>
          
-         <Option id={id}/>
+         <Option id={id} showEdite={showEdite} setShowEdite={setShowEdite} />
+         <EditeForm showEdite={showEdite} setShowEdite={setShowEdite}></EditeForm>
     </div>
   );
 };

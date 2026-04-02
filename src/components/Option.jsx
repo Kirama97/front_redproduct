@@ -6,14 +6,18 @@ import { MdModeEditOutline } from "react-icons/md";
 
 
 
-const Option = ({id}) => {
+const Option = ({id , showEdite , setShowEdite}) => {
 
     
-    const handleDelete = () => {
+    const handleDelete = async () => {
     
     }
 
-    const handleEdite = () => {
+    const handleEdite = async (e) => {
+
+        e.preventDefault();
+
+          setShowEdite(!showEdite)
         
     }
 
