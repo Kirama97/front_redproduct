@@ -25,7 +25,7 @@ const DetailHotel = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showEdite, setShowEdite] = useState(false);
 
-  // Récupérer l'hôtel depuis le context
+  
   useEffect(() => {
     const fetchHotel = async () => {
       try {

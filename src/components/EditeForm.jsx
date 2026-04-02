@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiArrowLeft, FiUpload, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
 import api from "../services/api";
 import { useHotels } from "../context/HotelContext";
 
+const EditeForm = ({ setShowEdite,showEdite, id }) => {
 
-const EditeForm = ({ setShowEdite , showEdite }) => {
-  
-  const { refreshHotels } = useHotels(); 
+  const { refreshHotels,  unHotel } = useHotels();
 
   const [form, setForm] = useState({
     nom: "",
@@ -18,12 +17,44 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
     devise: "F XOF",
   });
 
-  const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState(null);         
+  const [imagePreview, setImagePreview] = useState(null); 
+  const [imageExistante, setImageExistante] = useState(null); 
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
 
   const DEVISES = ["F XOF", "EUR", "USD", "GNF"];
 
+ 
+  useEffect(() => {
+    const chargerHotel = async () => {
+      try {
+        const data = await unHotel(id);
+        setForm({
+          nom:           data.nom           || "",
+          adresse:       data.adresse       || "",
+          email_contact: data.email_contact || "",
+          telephone:     data.telephone     || "",
+          prix_par_nuit: data.prix_par_nuit || "",
+          devise:        data.devise        || "F XOF",
+        });
+       
+        if (data.image_url) {
+          setImageExistante(data.image_url);
+          setImagePreview(data.image_url);
+        }
+      } catch {
+        toast.error("Impossible de charger les données de l'hôtel");
+        setShowEdite(false);
+      } finally {
+        setLoadingData(false);
+      }
+    };
+
+    chargerHotel();
+  }, [id]);
+
+ 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -32,6 +63,7 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
       return;
     }
     setImage(file);
+    setImageExistante(null); 
     const reader = new FileReader();
     reader.onloadend = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
@@ -40,8 +72,10 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
   const removeImage = () => {
     setImage(null);
     setImagePreview(null);
+    setImageExistante(null);
   };
 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.nom.trim()) return toast.error("Nom requis");
@@ -49,53 +83,67 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("nom", form.nom);
-      formData.append("adresse", form.adresse);
+      formData.append("nom",           form.nom);
+      formData.append("adresse",       form.adresse);
       formData.append("email_contact", form.email_contact);
-      formData.append("telephone", form.telephone);
+      formData.append("telephone",     form.telephone);
       formData.append("prix_par_nuit", form.prix_par_nuit);
-      formData.append("devise", form.devise);
+      formData.append("devise",        form.devise);
+
+     
       if (image) formData.append("image", image);
 
-      await api.post("/hotels/", formData, {
+      await api.put(`/hotels/${id}/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success("Hôtel créé avec succès !");
-      await refreshHotels(); 
-      setShowAddHotel(false);
+      toast.success("Hôtel modifié avec succès !");
+      await refreshHotels();
+      setShowEdite(false);
 
     } catch (error) {
       console.error(error.response?.data);
       toast.error(
         error.response?.data?.detail ||
         error.response?.data?.nom?.[0] ||
-        "Erreur lors de la création"
+        "Erreur lors de la modification"
       );
     } finally {
       setLoading(false);
     }
   };
 
+ 
+  if (loadingData) {
+    return (
+      <div className="absolute inset-0 bg-neutral-400/50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl p-8 flex items-center gap-3">
+          <div className="w-5 h-5 border-2 border-gray-800 border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-gray-600">Chargement...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
-      className="absolute z-50 inset-0 max-h-screen bg-neutral-400/50 sm:bg-neutral-400/60  py-2 sm:py-0 px-4"
+      className="absolute inset-0 max-h-screen z-50 bg-neutral-400/50 sm:bg-neutral-400/40 py-2 sm:py-0 px-4"
       style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
     >
-      <div className="max-w-xl mx-auto my-5 bg-white rounded-2xl overflow-hidden">
+      <div className="max-w-2xl mx-auto bg-white rounded-2xl overflow-hidden">
         <div className="bg-white shadow-sm border border-gray-200 overflow-hidden">
 
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-300">
             <button
-              onClick={() => setShowEdite(!showEdite)}
+              onClick={() => setShowEdite(false)}
               className="flex items-center gap-2 text-gray-600 hover:text-yellow-400 transition-colors mb-3"
             >
               <FiArrowLeft size={18} />
               <span className="text-sm font-medium">Retour</span>
             </button>
             <h2 className="text-xs font-bold text-gray-900 mt-5 uppercase tracking-tight">
-              Créer un nouveau hôtel
+              Modifier l'hôtel
             </h2>
           </div>
 
@@ -192,11 +240,21 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
             {/* Image */}
             <div className="h-30 sm:h-40">
               <label className="block text-xs font-medium text-gray-600 mb-2">
-                Ajouter une image
+                Photo de l'hôtel
               </label>
               {imagePreview ? (
                 <div className="relative border-2 h-16 border-gray-200 rounded-xl overflow-hidden">
-                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Badge si image existante Cloudinary */}
+                  {imageExistante && !image && (
+                    <span className="absolute bottom-1 left-2 text-[10px] bg-black/50 text-white px-2 py-0.5 rounded-full">
+                      Image actuelle
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={removeImage}
@@ -210,7 +268,9 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
                   <div className="border-2 h-[100px] flex items-center justify-center border-dashed border-gray-300 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all">
                     <div className="flex items-center gap-2">
                       <FiUpload size={14} className="text-gray-400" />
-                      <p className="text-xs text-gray-500 font-medium">Ajouter une image</p>
+                      <p className="text-xs text-gray-500 font-medium">
+                        Changer l'image
+                      </p>
                     </div>
                   </div>
                   <input
@@ -235,7 +295,7 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Enregistrement...
                   </span>
-                ) : "Enregistrer"}
+                ) : "Enregistrer les modifications"}
               </button>
             </div>
           </form>
