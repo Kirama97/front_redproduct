@@ -13,11 +13,10 @@ const Option = ({id , showEdite , setShowEdite}) => {
     
     }
 
-    const handleEdite = async (e) => {
+    const handleEdite = async () => {
 
-        e.preventDefault();
 
-          setShowEdite(!showEdite)
+          await setShowEdite(!showEdite)
         
     }
 

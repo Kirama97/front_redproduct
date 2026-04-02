@@ -3,7 +3,7 @@ import { FiArrowLeft, FiUpload, FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
 import api from "../services/api";
 import { useHotels } from "../context/HotelContext";
-import EditeForm from './EditeForm';
+
 
 const EditeForm = ({ setShowEdite , showEdite }) => {
   
@@ -79,16 +79,16 @@ const EditeForm = ({ setShowEdite , showEdite }) => {
 
   return (
     <div
-      className="absolute inset-0 max-h-screen bg-neutral-400/50 sm:bg-neutral-400/40 py-2 sm:py-0 px-4"
+      className="absolute z-50 inset-0 max-h-screen bg-neutral-400/50 sm:bg-neutral-400/60  py-2 sm:py-0 px-4"
       style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
     >
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl overflow-hidden">
+      <div className="max-w-xl mx-auto my-5 bg-white rounded-2xl overflow-hidden">
         <div className="bg-white shadow-sm border border-gray-200 overflow-hidden">
 
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-300">
             <button
-              onClick={() => setShowEdite(false)}
+              onClick={() => setShowEdite(!showEdite)}
               className="flex items-center gap-2 text-gray-600 hover:text-yellow-400 transition-colors mb-3"
             >
               <FiArrowLeft size={18} />
