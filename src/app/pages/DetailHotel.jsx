@@ -17,13 +17,14 @@ import toast from "react-hot-toast";
 
 const DetailHotel = () => {
   const { id } = useParams();
-  const { unHotel } = useHotels();
+  const { unHotel  } = useHotels();
   const navigate = useNavigate();
 
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showEdite, setShowEdite] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   
   useEffect(() => {
@@ -66,6 +67,12 @@ const DetailHotel = () => {
       toast.success("Lien copié !");
     }
   };
+
+  useEffect(() => {
+  if (!showEdite && id) {
+    unHotel(id).then(setHotel);
+  }
+}, [showEdite]);
 
   if (loading) {
     return (
@@ -197,9 +204,9 @@ const DetailHotel = () => {
         </div>
       </div>
 
-      <Option id={id} showEdite={showEdite} setShowEdite={setShowEdite} />
+      <Option id={id} showEdite={showEdite} setShowEdite={setShowEdite} showDelete={showDelete} setShowDelete={setShowDelete}  />
       {showEdite && (
-        <EditeForm id={id} showEdite={showEdite} setShowEdite={setShowEdite} />
+        <EditeForm id={id} showEdite={showEdite} setShowEdite={setShowEdite}  setHotel={setHotel} />
       )}
     </div>
   );

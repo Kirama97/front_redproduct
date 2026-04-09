@@ -39,7 +39,7 @@ const HotelProvider = ({ children }) => {
 
         try {         
             await  api.put(`/hotels/${id}/`, data)
-          fetchHotels();
+            await fetchHotels();
         } catch (err) {
             console.error("Erreur mise a jour :", err);
              setError(err); 

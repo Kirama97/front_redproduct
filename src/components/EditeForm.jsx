@@ -4,9 +4,9 @@ import toast from "react-hot-toast";
 import api from "../services/api";
 import { useHotels } from "../context/HotelContext";
 
-const EditeForm = ({ setShowEdite,showEdite, id }) => {
+const EditeForm = ({ setShowEdite,showEdite, id  }) => {
 
-  const { refreshHotels,  unHotel } = useHotels();
+  const { refreshHotels,  unHotel  , updateHotel } = useHotels();
 
   const [form, setForm] = useState({
     nom: "",
@@ -93,13 +93,15 @@ const EditeForm = ({ setShowEdite,showEdite, id }) => {
      
       if (image) formData.append("image", image);
 
-      await api.put(`/hotels/${id}/`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+       await  updateHotel(id ,formData) 
+
+     
 
       toast.success("Hôtel modifié avec succès !");
-      await refreshHotels();
+       refreshHotels();
+      
       setShowEdite(false);
+      
 
     } catch (error) {
       console.error(error.response?.data);
