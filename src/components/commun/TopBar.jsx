@@ -3,11 +3,13 @@ import { CiSearch } from "react-icons/ci";
 import profil_img from '../../assets/image_profil/profil_img.jpg'
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Notification from './../Notification';
 import { RiMenu2Fill } from "react-icons/ri";
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import { matchPath } from "react-router-dom";
+import { CiUser } from "react-icons/ci";
 
 
 
@@ -16,6 +18,20 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
      const {logout } = useAuth()
      const navigate = useNavigate();
      const [showNotification , setShowNotification] = useState(false)
+
+
+      
+
+      const getTitle = () => {
+        const path = location.pathname;
+
+        if (matchPath("/hotel/:id", path)) return "Detail Hotel";
+        if (matchPath("/hotels", path)) return "Hotels";
+        if (matchPath("/dashbord", path)) return "Dashboard";
+        if (matchPath("/reservations", path)) return "Réservations";
+
+        return "Dashboard";
+      };
 
 
       const handleLogout = async () => {
@@ -30,9 +46,9 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
            onClick={() => setShowSideBar(!showSideBar)}
            className='sm:hidden'
            />
-          <h1 onClick={() => navigate("/dashboard")} className='text-lg sm:text-sm font-semibold '>Dashbord</h1>  
+          <h1 onClick={() => navigate("/dashboard")} className='text-lg sm:text-sm font-semibold '>{getTitle()}</h1>  
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
             {/* rechercher */}
            <div className=" hidden sm:flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
                 <CiSearch size={12} />
@@ -52,10 +68,16 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
               
             </div>
             {/* profil */}
-            <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">
-                 <img src={profil_img} className='w-full h-full rounded-full' alt="profil"  />
+            <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 bg-yellow-300  flex items-center justify-center p-2 rounded-full hover:bg-yellow-400 transition">
+                 <CiUser  size={20} className='' />
                  <span className='absolute bottom-[-1px] right-[-1px] rounded-full z-50 w-[5px] h-[5px]  bg-green-600'></span>
             </div>
+            {/* <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">
+                 <img src={profil_img} className='w-full h-full rounded-full' alt="profil"  />
+                 <span className='absolute bottom-[-1px] right-[-1px] rounded-full z-50 w-[5px] h-[5px]  bg-green-600'></span>
+            </div> */}
+          
+
             {/* logout */}
               <MdOutlineLogout
                onClick={() => handleLogout()}

@@ -14,10 +14,11 @@ import { useHotels } from "../../context/HotelContext";
 import Option from "../../components/Option";
 import EditeForm from "../../components/EditeForm";
 import toast from "react-hot-toast";
+import { FiAlertTriangle } from "react-icons/fi";
 
 const DetailHotel = () => {
   const { id } = useParams();
-  const { unHotel  } = useHotels();
+  const { unHotel , deleteHotel , refreshHotels } = useHotels();
   const navigate = useNavigate();
 
   const [hotel, setHotel] = useState(null);
@@ -73,6 +74,18 @@ const DetailHotel = () => {
     unHotel(id).then(setHotel);
   }
 }, [showEdite]);
+
+// suppression 
+
+  const handleDelete = async (e) => {
+     e.preventDefault()
+     setLoading(true)
+     await deleteHotel(id)
+     navigate('/hotels')
+     await refreshHotels()
+     toast.success('hotel supprimer')
+
+  }
 
   if (loading) {
     return (
@@ -207,6 +220,30 @@ const DetailHotel = () => {
       <Option id={id} showEdite={showEdite} setShowEdite={setShowEdite} showDelete={showDelete} setShowDelete={setShowDelete}  />
       {showEdite && (
         <EditeForm id={id} showEdite={showEdite} setShowEdite={setShowEdite}  setHotel={setHotel} />
+      )}
+
+      { showDelete && (
+          <div className="fixed inset-0  z-50 bg-black/50 py-2  flex items-center justify-center">
+              <div className="max-w-2xl mx-auto bg-neutral-100 shadow-lg rounded-2xl py-5 px-10 overflow-hidden flex flex-col items-center justify-center">
+                  <div className="h-20 w-20 rounded-full flex items-center justify-center   mx-auto bg-red-300">
+                     <FiAlertTriangle size={40} className="text-red-400" />
+                  </div>
+                   <div className="text-center mt-2">
+                       <p className="my-5 text-sm">  Êtes-vous sûr de vouloir annuler l'hôtel ?</p>
+                        <div className="flex items-center justify-center gap-5">
+                           <button
+                            onClick={() => setShowDelete(!showDelete)}
+                        
+                            className="bg-red-500 hover:bg-red-600 text-red-100   text-sm px-5  py-1 w-30 rounded-md">Annuller</button>
+                           <button
+                            disabled={loading}
+                            onClick={handleDelete}
+                            className=" text-white bg-green-500 hover:bg-green-600 text-sm px-5 w-30 py-1 transition-all disabled:opacity-50 rounded-md">Confirmer</button>
+                        </div>
+                   </div>
+                 
+              </div>
+          </div>
       )}
     </div>
   );

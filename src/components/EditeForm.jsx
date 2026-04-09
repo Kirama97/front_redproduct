@@ -129,10 +129,10 @@ const EditeForm = ({ setShowEdite,showEdite, id  }) => {
 
   return (
     <div
-      className="absolute inset-0 max-h-screen z-50 bg-neutral-400/50 sm:bg-neutral-400/40 py-2 sm:py-0 px-4"
+      className="fixed inset-0  flex items-center z-50 justify-center bg-black/50 sm:bg-black/40   "
       style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
     >
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl overflow-hidden">
+      <div className="max-w-2xl w-full mx-auto  bg-white rounded-2xl overflow-hidden">
         <div className="bg-white shadow-sm border border-gray-200 overflow-hidden">
 
           {/* Header */}

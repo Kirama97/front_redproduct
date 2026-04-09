@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [admin, setAdmin] = useState('');
 
   const [token, setToken] = useState(
     localStorage.getItem("token") || null
@@ -86,18 +84,35 @@ const fetchutilisateurs = async () => {
   }
 };
 
+//  user
+const fetchProfil = async () => {
+  if (!token) return;
+
+  setLoading(true);
+  try {
+    const reponse = await api.get("/auth/me/");
+    setAdmin(reponse.data);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 useEffect(() => {
   fetchutilisateurs();
+  fetchProfil()
 }, [token]);
 
   const contextValue = {
-    user,
+    
     token,
     login,
     register,
     utilisateurs,
     loading,
     logout,
+    admin
   };
 
   return (

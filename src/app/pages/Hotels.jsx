@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import HotelItem from '../../components/HotelItem';
 import AjouterHotel from '../../components/AjouterHotel';
-import { hotels } from '../../hook/bd';
 import { CiSearch } from "react-icons/ci";
 import Recherche from './Recherche';
 import { useHotels } from '../../context/HotelContext';
@@ -11,6 +10,9 @@ const Hotels = () => {
   const { hotels , loading } = useHotels()
    const [ShowAddHotel ,setShowAddHotel] = useState(false)
    const [showRecherche ,setShowRecherche] = useState(false)
+   const compteurHotel = hotels.length
+
+   
 
    
   
@@ -29,7 +31,7 @@ const Hotels = () => {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <p className="text-xl font-bold text-gray-900 mb-4">Produit introuvable</p>
+          <p className="text-xl font-bold text-gray-900 mb-4">Hotels introuvable</p>
           <button
             onClick={() => navigate(-1)}
             className="px-6 py-3 bg-orange-400 text-white rounded-xl font-bold hover:bg-orange-500 transition"
@@ -40,6 +42,26 @@ const Hotels = () => {
       </div>
     );
   }
+  if (hotels.length == 0) {
+    return (
+      <div className=" relative h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <p className="text-md font-semibold text-gray-900 mb-4">Vous n'avez aucun hotel </p>
+          <button
+            onClick={() => setShowAddHotel(true)}
+            className="px-6 py-3 bg-orange-400 text-white rounded-xl font-bold hover:bg-orange-400 transition"
+          >
+            Créer un hotel
+          </button>
+           {
+          ShowAddHotel && (<AjouterHotel setShowAddHotel={setShowAddHotel} />
+          )
+        }
+        </div>
+      </div>
+    );
+  }
+
   
   
     
@@ -48,7 +70,7 @@ const Hotels = () => {
          {/* top */}
        <div className="flex items-center justify-between bg-neutral-50 px-5 py-5 sm:py-3">
           <div className="flex items-center gap-2">
-              <p className='text-md text-neutral-800'>Hotels <span>8</span></p>
+              <p className='text-md text-neutral-800'>Hotels <span>{compteurHotel}</span></p>
           </div>
           <button 
           onClick={() => setShowAddHotel(true)}

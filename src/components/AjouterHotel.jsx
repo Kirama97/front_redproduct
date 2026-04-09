@@ -78,10 +78,10 @@ const AjouterHotel = ({ setShowAddHotel }) => {
 
   return (
     <div
-      className="absolute inset-0 max-h-screen bg-neutral-400/50 sm:bg-neutral-400/40 py-2 sm:py-0 px-4"
+      className="fixed inset-0  flex items-center z-50 justify-center bg-black/50 sm:bg-black/40   "
       style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
     >
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl overflow-hidden">
+      <div className="mx-3 sm:max-w-2xl w-full sm:mx-auto  bg-white rounded-2xl overflow-hidden">
         <div className="bg-white shadow-sm border border-gray-200 overflow-hidden">
 
           {/* Header */}
@@ -99,12 +99,12 @@ const AjouterHotel = ({ setShowAddHotel }) => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="h-[70vh] overflow-y-auto p-4 space-y-4">
+          <form onSubmit={handleSubmit} className="h-[70vh] max-sm:text-left overflow-y-auto p-4 space-y-4">
 
             {/* Nom + Adresse */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid   grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-2">
+                <label className="block  text-xs font-medium text-gray-600 mb-2">
                   Nom de l'hôtel
                 </label>
                 <input

@@ -66,6 +66,23 @@ const unHotel = useCallback(async (id) => {
   }
 }, [token]);
 
+const deleteHotel = useCallback(async (id) => {
+   if(!token) return ;
+   setLoading(true);
+   setError(null);
+    try {
+      await api.delete(`/hotels/${id}/`)
+    } catch (error) {
+    console.error("Erreur suppression hôtel :", error);
+    setError(error);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+
+
+} ,[ token])
+
   
 
   useEffect(() => {
@@ -78,6 +95,7 @@ const unHotel = useCallback(async (id) => {
     loading,
     unHotel,
     updateHotel,
+    deleteHotel,
     error,
     refreshHotels: fetchHotels,
   };
