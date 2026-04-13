@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { CiSearch } from "react-icons/ci";
-import profil_img from '../../assets/image_profil/profil_img.jpg'
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router';
@@ -10,12 +9,14 @@ import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import { matchPath } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
+import profil_img from '../../assets/image_profil/user_default.png'
+
 
 
 
 
 const TopBar = ({showSideBar ,setShowSideBar}) => {
-     const {logout } = useAuth()
+     const {logout ,admin } = useAuth()
      const navigate = useNavigate();
      const [showNotification , setShowNotification] = useState(false)
 
@@ -68,8 +69,18 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
               
             </div>
             {/* profil */}
-            <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 bg-yellow-300  flex items-center justify-center p-2 rounded-full hover:bg-yellow-400 transition">
-                 <CiUser  size={20} className='' />
+            <div
+             title={`${admin?.first_name || "" } ${admin?.last_name || ""}`}
+             onClick={() => navigate('/profil')} className="relative  w-7 h-7 bg-yellow-300  flex items-center justify-center  rounded-full transition">
+                  <img 
+                    src={
+                       admin.profile_picture                   
+                         ? admin.profile_picture
+                         : profil_img                                 
+                     }
+                      alt="profile"
+                      className="w-full h-full rounded-full object-cover border-2 border-yellow-400"
+                   />
                  <span className='absolute bottom-[-1px] right-[-1px] rounded-full z-50 w-[5px] h-[5px]  bg-green-600'></span>
             </div>
             {/* <div onClick={() => navigate('/profil')} className="relative  w-7 h-7 sm:w-5 sm:h-5 rounded-full mx-2 cursor-pointer">

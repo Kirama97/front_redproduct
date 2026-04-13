@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { FaHotel } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
+import profil_img from '../../assets/image_profil/user_default.png'
 
 const SideBar = ({ showSideBar ,setShowSideBar }) => {
   const {admin} = useAuth()
@@ -58,9 +59,18 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
           <div className="flex items-center gap-3">
             <NavLink
               to="/profil"
-              className="flex items-center justify-center bg-white p-2 rounded-full hover:bg-yellow-400 transition"
+              title={`${admin?.first_name || "" } ${admin?.last_name || ""}`}
+              className="flex items-center overflow-hidden w-10 h-10 justify-center bg-white rounded-full hover:bg-yellow-400 transition"
             >
-              <CiUser size={18} />
+              <img 
+                src={
+                   admin.profile_picture                   
+                     ? admin.profile_picture
+                     : profil_img                                 
+                 }
+                  alt="profile"
+                  className="w-full h-full rounded-full object-cover border-1 border-yellow-400"
+               />
             </NavLink>
 
             <div>
