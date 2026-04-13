@@ -1,27 +1,80 @@
-import React, { useState } from "react";
-import { FiUser, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { FiUser, FiMail, FiPhone, FiMapPin ,FiCheck} from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 import { CiUser } from "react-icons/ci";
 import profil_img from '../../assets/image_profil/user_default.png'
+import toast from "react-hot-toast";
+
 
 
 
 const Profile = () => {
-   const { admin } = useAuth()
+   const { admin , token , updateUser  ,fetchProfil} = useAuth()
+   const [loading , setLoading ] = useState(false) 
+   const [error, setError ] = useState() 
+   const [form , setForm] = useState({
+      username:"",
+      first_name: "" ,
+      last_name:"" 
+   }
+
+   )
+
+useEffect(() => {
+  if (!admin) return;
+
+  const chargerProfil = async () => {
+    setLoading(true);
+    try {
+      const user = admin;
+
+      setForm({
+        username: user.username || "",
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+      });
+
+    } catch {
+      toast.error("Impossible de charger les données du user");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  chargerProfil();
+}, [admin]);
+
+
+
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+     setLoading(true)
+
+     try {
+        const formData = new FormData();
+        formData.append("username",  form.username);
+        formData.append("first_name",form.first_name);
+        formData.append("last_name", form.last_name);
+       
+        await updateUser(formData)
+        fetchProfil()
+        toast.success("profil modifié avec succès !");
+        } catch (error) {
+          console.error(error.response?.data);
+        
+        } finally {
+          setLoading(false);
+        }
+      
+   }
 
 
  
-  const [user] = useState({
-   
-    telephone: "",
-    // adresse: "",
-    // photo: "src/assets/image_profil/user_default.png"
-  });
 
   return (
     <div className="max-h-screen h-screen bg-gray-50 flex items-center justify-center px-4">
       
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xs p-6 ">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-2xl shadow-xs p-6 ">
         
         {/* PHOTO */}
         <div className="flex flex-col items-center">
@@ -41,40 +94,77 @@ const Profile = () => {
 
           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
             <FiUser className="text-yellow-400" />
-            <span className="text-sm text-gray-700">
-              {admin.username}
-            </span>
+            <input 
+             type="text"
+             value={form.username}
+             onChange={(e) => setForm({...form,username: e.target.value})}
+             className="text-sm  bg-transparent lowercase text-black w-full h-full outline-none" />
+            
+            
           </div>
 
-          <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
-            <FiMail className="text-yellow-400" />
-            <span className="text-sm text-gray-700">
-              {admin.email}
-            </span>
-          </div>
 
           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
             <FiPhone className="text-yellow-400" />
-            <span className="text-sm text-gray-700">
-              {user.telephone}
-            </span>
+               <input 
+             type="text"
+             value={form.first_name}
+             onChange={(e) => setForm({...form,first_name: e.target.value})}
+             placeholder="prenom"
+             className="text-sm bg-transparent lowercase text-black w-full h-full outline-none" />
           </div>
 
           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
             <FiMapPin className="text-yellow-400" />
-            <span className="text-sm text-gray-700">
-              {user.adresse}
-            </span>
+            <input 
+             type="text"
+             value={form.last_name}
+             onChange={(e) => setForm({...form,last_name: e.target.value})}
+             placeholder="nom"
+             className="text-sm bg-transparent lowercase text-black w-full h-full outline-none" />
+          </div>
+
+           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
+            <FiMail className="text-yellow-400" />
+              <input 
+             type="email"
+             value={admin?.email || ""}
+             readOnly
+             className="text-sm bg-transparent text-black w-full h-full outline-none" />
           </div>
 
         </div>
 
         {/* BOUTON */}
-        <button className="mt-6 w-full py-3 bg-yellow-400 text-white rounded-xl font-semibold hover:bg-yellow-400 transition">
-          Modifier le profil
-        </button>
+          <button 
+                type="submit" 
+                disabled={loading}
+                className={`w-full py-4 rounded-xl font-black text-sm mt-4 uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-2 ${
+                  loading 
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white'
+                }`}
+              >
+                {loading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-gray-500 border-t-transparent rounded-full animate-spin" />
+                    Modification en cours...
+                  </>
+                ) : (
+                  <>
+                    <FiCheck size={16} />
+                    Enregistrer les modifications
+                  </>
+                )}
+              </button>
+              <p className="text-xs text-gray-500 text-center mt-10">
+              Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}
+            </p>
+              
+    
 
-      </div>
+      </form>
+
     </div>
   );
 };

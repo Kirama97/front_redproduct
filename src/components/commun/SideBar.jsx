@@ -5,8 +5,12 @@ import { CiUser } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { FaHotel } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
 const SideBar = ({ showSideBar ,setShowSideBar }) => {
+  const {admin} = useAuth()
+
+
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-2 text-sm transition-all
      ${
@@ -60,7 +64,7 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
             </NavLink>
 
             <div>
-              <p className="text-sm text-white">Admin</p>
+              <p className="text-sm text-white">{admin.username}</p>
               <p className="flex items-center gap-2 text-xs text-neutral-300">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 En ligne

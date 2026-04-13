@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
-
+  // l'inscription
   const register = async (data) => {
     setLoading(true);
     try {
@@ -35,6 +35,8 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+
+  // connexion
   const login = async (data) => {
   setLoading(true);
   try {
@@ -55,6 +57,7 @@ const AuthProvider = ({ children }) => {
   }
 };
 
+// Deconnexion
   const logout = async () => {
     const refresh = localStorage.getItem('refresh')
     try {
@@ -70,38 +73,61 @@ const AuthProvider = ({ children }) => {
 
   // tous les user
 
-const fetchutilisateurs = async () => {
-  if (!token) return;
+  const fetchutilisateurs = async () => {
+    if (!token) return;
 
-  setLoading(true);
-  try {
-    const reponse = await api.get("/auth/users/");
-    setUtilisateurs(reponse.data);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+    try {
+      const reponse = await api.get("/auth/users/");
+      setUtilisateurs(reponse.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 //  user
-const fetchProfil = async () => {
+  const fetchProfil = async () => {
+    if (!token) return;
+
+    setLoading(true);
+    try {
+      const reponse = await api.get("/auth/me/");
+      setAdmin(reponse.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // mettre a jour profil  
+
+const updateUser = async (data) => {
   if (!token) return;
 
-  setLoading(true);
+ 
+
   try {
-    const reponse = await api.get("/auth/me/");
-    setAdmin(reponse.data);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
+    const response = await api.put('/auth/me/', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error("Erreur mise à jour :", err);
+    throw err;
   }
 };
+
 
 useEffect(() => {
   fetchutilisateurs();
-  fetchProfil()
+  updateUser();
+  fetchProfil();
 }, [token]);
 
   const contextValue = {
@@ -111,6 +137,7 @@ useEffect(() => {
     register,
     utilisateurs,
     loading,
+    fetchProfil,
     logout,
     admin
   };
