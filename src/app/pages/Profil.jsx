@@ -84,7 +84,7 @@ useEffect(() => {
  
 
   return (
-    <div className="max-h-screen h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="max-h-screen mt-10 flex items-center justify-center px-4">
       
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-2xl shadow-xs p-6 ">
         
