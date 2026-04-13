@@ -5,6 +5,8 @@ import { CiUser } from "react-icons/ci";
 import profil_img from '../../assets/image_profil/user_default.png'
 import toast from "react-hot-toast";
 
+import { RiUser6Fill } from "react-icons/ri";
+import { GrUser } from "react-icons/gr";
 
 
 
@@ -15,10 +17,13 @@ const Profile = () => {
    const [form , setForm] = useState({
       username:"",
       first_name: "" ,
-      last_name:"" 
+      last_name:"" ,
+      profile_picture: null,
    }
 
    )
+
+   console.log(admin)
 
 useEffect(() => {
   if (!admin) return;
@@ -32,6 +37,7 @@ useEffect(() => {
         username: user.username || "",
         first_name: user.first_name || "",
         last_name: user.last_name || "",
+         profile_picture: null,
       });
 
     } catch {
@@ -55,10 +61,16 @@ useEffect(() => {
         formData.append("username",  form.username);
         formData.append("first_name",form.first_name);
         formData.append("last_name", form.last_name);
+
+        if(form.profile_picture){
+          formData.append("profile_picture" , form.profile_picture)
+        }
        
         await updateUser(formData)
-        fetchProfil()
+        await fetchProfil()
         toast.success("profil modifié avec succès !");
+
+          setForm((prev) => ({ ...prev, profile_picture: null }));
         } catch (error) {
           console.error(error.response?.data);
         
@@ -77,17 +89,41 @@ useEffect(() => {
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-2xl shadow-xs p-6 ">
         
         {/* PHOTO */}
+
         <div className="flex flex-col items-center">
+        
           <img
-            src={profil_img}
+            src={
+              form.profile_picture
+                ? URL.createObjectURL(form.profile_picture)  
+                : admin.profile_picture                        
+                ? admin.profile_picture
+                : profil_img                                 
+            }
             alt="profile"
             className="w-24 h-24 rounded-full object-cover border-4 border-yellow-400"
           />
+
           <h2 className="mt-3 text-lg font-bold text-gray-900">
             {admin.username} 
           </h2>
-          <p className="text-sm text-gray-500">Profil utilisateur</p>
+          
+          {/* Input caché pour sélectionner une image + un label stylisé */}
+          <label className="mt-2 text-xs text-yellow-500 cursor-pointer font-semibold hover:underline">
+            Changer la photo
+            <input 
+              type="file" 
+              accept="image/*" // N'accepter que les images
+              className="hidden" // On le cache pour le rendre plus joli
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                    setForm({ ...form, profile_picture: e.target.files[0] });
+                }
+              }}
+            />
+          </label>
         </div>
+
 
         {/* INFOS */}
         <div className="mt-6 space-y-4">
@@ -105,7 +141,7 @@ useEffect(() => {
 
 
           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
-            <FiPhone className="text-yellow-400" />
+            <RiUser6Fill  className="text-yellow-400" />
                <input 
              type="text"
              value={form.first_name}
@@ -115,7 +151,7 @@ useEffect(() => {
           </div>
 
           <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-xl">
-            <FiMapPin className="text-yellow-400" />
+            <GrUser  className="text-yellow-400" />
             <input 
              type="text"
              value={form.last_name}
@@ -128,6 +164,7 @@ useEffect(() => {
             <FiMail className="text-yellow-400" />
               <input 
              type="email"
+             disabled
              value={admin?.email || ""}
              readOnly
              className="text-sm bg-transparent text-black w-full h-full outline-none" />
@@ -139,10 +176,10 @@ useEffect(() => {
           <button 
                 type="submit" 
                 disabled={loading}
-                className={`w-full py-4 rounded-xl font-black text-sm mt-4 uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-2 ${
+                className={`w-full py-4 rounded-xl font-black text-xs mt-4 uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-2 ${
                   loading 
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white'
+                    : 'bg-gradient-to-r from-yellow-400 to-yellow-500  hover:from-yellow-500 hover:to-yellow-600 text-white'
                 }`}
               >
                 {loading ? (

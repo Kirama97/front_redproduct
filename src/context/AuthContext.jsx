@@ -104,15 +104,16 @@ const AuthProvider = ({ children }) => {
 
   // mettre a jour profil  
 
+// Dans AuthContext.js
 const updateUser = async (data) => {
   if (!token) return;
-
- 
 
   try {
     const response = await api.put('/auth/me/', data, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+      
+        "Content-Type": "multipart/form-data",
       }
     });
 
@@ -124,9 +125,9 @@ const updateUser = async (data) => {
 };
 
 
+
 useEffect(() => {
   fetchutilisateurs();
-  updateUser();
   fetchProfil();
 }, [token]);
 
@@ -139,7 +140,8 @@ useEffect(() => {
     loading,
     fetchProfil,
     logout,
-    admin
+    admin,
+    updateUser
   };
 
   return (
