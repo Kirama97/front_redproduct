@@ -56,7 +56,9 @@ const Inscription = () => {
       }
     } catch (error) {
       toast.error("Email ou mot de passe incorrect");
-    }
+      console.log('Status:', error.response?.status);
+      console.log('Erreur complète:', JSON.stringify(error.response?.data, null, 2));
+      }
 
 
     }

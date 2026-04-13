@@ -3,9 +3,10 @@ import { FiUser, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 import { CiUser } from "react-icons/ci";
 
+
 const Profile = () => {
    const { admin } = useAuth()
-   console.log(admin)
+  //  console.log(admin)
 
  
   const [user] = useState({
