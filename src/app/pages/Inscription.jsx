@@ -71,21 +71,21 @@ const Inscription = () => {
       style={{ backgroundImage :`url(${image_bg})`}}
     >
     
-     <div className="w-xl">
+     <div className=" max-sm:w-full max-sm:mx-4  sm:w-xl">
           <div className="flex gap-3 justify-center items-center pb-5">
               <img src={logo} alt="Logo" />
               <h1 className="text-white text-md font-bold">RED PRODUCT</h1> 
           </div>
   
           <div className="w-full bg-white px-7 py-10 rounded-sm">
-              <p className="text-xs text-neutral-700 font-semibold">Inscrivez-vous en tant que Admin</p>
+              <p className="text-lg sm:text-xs text-neutral-700 font-semibold">Inscrivez-vous en tant que Admin</p>
   
           
   
               <form onSubmit={handleRegister} className="flex flex-col gap-2 py-2">
                 {/* nom */}
                   <input 
-                    className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                     type="text" 
@@ -98,7 +98,7 @@ const Inscription = () => {
 
                    {/* email */}
                   <input 
-                    className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                     type="email" 
@@ -111,7 +111,7 @@ const Inscription = () => {
 
                   {/* password */}
                   <input
-                     className={`w-full outline-none text-xs py-2 placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                     className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                      type="password" 
@@ -145,7 +145,7 @@ const Inscription = () => {
   
           <div className="w-full text-white text-center py-2">
               
-              <p className="text-[10px] mt-3">Vous avez un compte ? <NavLink to="/connexion"  className="text-yellow-300">Se connecter</NavLink></p>
+              <p className="text-md sm:text-[10px] mt-3">Vous avez un compte ? <NavLink to="/connexion"  className="text-yellow-300">Se connecter</NavLink></p>
           </div>
       
       </div>
