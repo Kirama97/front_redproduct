@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { FiUser, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 import { CiUser } from "react-icons/ci";
+import profil_img from '../../assets/image_profil/user_default.png'
+
 
 
 const Profile = () => {
    const { admin } = useAuth()
-  //  console.log(admin)
+
 
  
   const [user] = useState({
    
     telephone: "",
-    adresse: "",
-    photo: "src/assets/image_profil/profil_img.jpg"
+    // adresse: "",
+    // photo: "src/assets/image_profil/user_default.png"
   });
 
   return (
@@ -24,7 +26,7 @@ const Profile = () => {
         {/* PHOTO */}
         <div className="flex flex-col items-center">
           <img
-            src={user.photo}
+            src={profil_img}
             alt="profile"
             className="w-24 h-24 rounded-full object-cover border-4 border-yellow-400"
           />
