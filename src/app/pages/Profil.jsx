@@ -108,13 +108,13 @@ useEffect(() => {
             {admin.username} 
           </h2>
           
-          {/* Input caché pour sélectionner une image + un label stylisé */}
+         
           <label className="mt-2 text-xs text-yellow-500 cursor-pointer font-semibold hover:underline">
             Changer la photo
             <input 
               type="file" 
-              accept="image/*" // N'accepter que les images
-              className="hidden" // On le cache pour le rendre plus joli
+              accept="image/*" 
+              className="hidden" 
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
                     setForm({ ...form, profile_picture: e.target.files[0] });

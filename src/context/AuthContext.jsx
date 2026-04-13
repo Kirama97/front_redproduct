@@ -104,26 +104,34 @@ const AuthProvider = ({ children }) => {
 
   // mettre a jour profil  
 
-// Dans AuthContext.js
-const updateUser = async (data) => {
-  if (!token) return;
+  const updateUser = async (data) => {
+    if (!token) return;
 
-  try {
-    const response = await api.put('/auth/me/', data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    try {
+     
+      const baseUrl = api.defaults.baseURL ;
+
+      const response = await fetch(`${baseUrl}/auth/me/`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`
+       
+        },
+        body: data
+      });
+
       
-        "Content-Type": "multipart/form-data",
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw { response: { data: errorData } }; 
       }
-    });
 
-    return response.data;
-  } catch (err) {
-    console.error("Erreur mise à jour :", err);
-    throw err;
-  }
-};
-
+      return await response.json();
+    } catch (err) {
+      console.error("Erreur mise à jour :", err);
+      throw err;
+    }
+  };
 
 
 useEffect(() => {
