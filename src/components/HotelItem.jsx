@@ -17,9 +17,9 @@ const HotelItem = ({hotel}) => {
               />
           </div>
           {/* description */}
-          <div className="flex flex-col gap-1 sm:gap-2 justify-center px-3 py-4 ">
-             <p className='text-orange-400 text-[12px]'>{hotel.adresse}</p>
-             <h3 className='titre_hotel line-clamp-1 text-xs sm:text-md font-bold'>{hotel.nom} </h3>
+          <div className="flex flex-col gap-1 sm:gap-2  justify-center px-3 py-4 ">
+             <p className='text-orange-400 text-[12px] line-clamp-2'>{hotel.adresse}</p>
+             <h3 className='titre_hotel line-clamp-1 text-xs sm:text-md font-bold '>{hotel.nom} </h3>
              <p className='text-[10px] sm:text-[12px] text-neutral-700 mt-1'>{hotel.prix_par_nuit} XOF par nuit</p>
 
           </div>
