@@ -31,22 +31,37 @@ const HotelProvider = ({ children }) => {
 
   //  mettre a jour un hotel 
 
-   const updateHotel = async (id , data) => {
-       if(!token) return
+  // mettre a jour un hotel 
+  const updateHotel = async (id, data) => {
+    if (!token) return;
 
-       setLoading(true);
-       setError(null);
+    setLoading(true);
+    setError(null);
 
-        try {         
-            await  api.put(`/hotels/${id}/`, data)
-            await fetchHotels();
-        } catch (err) {
-            console.error("Erreur mise a jour :", err);
-             setError(err); 
-        } finally {
-            setLoading(false)
-        }
-   }
+    try {
+      
+      const baseUrl = api.defaults.baseURL ;
+      
+      const response = await fetch(`${baseUrl}/hotels/${id}/`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: data 
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur mise à jour hotel");
+      }
+
+      await fetchHotels();
+    } catch (err) {
+      console.error("Erreur mise a jour :", err);
+      setError(err); 
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // un hotel 
 

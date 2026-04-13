@@ -24,13 +24,13 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
       {/* DESKTOP */}
       <div
         style={{ backgroundImage: `url(${image_bg})` }}
-        className="hidden md:flex  h-screen w-1/6 flex-col justify-between bg-center bg-cover z-40"
+        className="hidden lg:flex  h-screen w-1/6 flex-col justify-between bg-center bg-cover z-40"
       >
         {/* TOP */}
         <div>
           <div className="flex items-center gap-3 px-4 py-6">
             <img src={logo} className="w-6 h-6" alt="logo" />
-            <h1 className="text-white text-xs font-bold">RED PRODUCT</h1>
+            <h1 className="text-white text-xs font-bold line-clamp-1">RED PRODUCT</h1>
           </div>
 
           {/* MENU */}
@@ -42,12 +42,12 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
             <nav className="flex flex-col ">
               <NavLink to="/dashboard" className={linkClass}>
                 <MdDashboard size={15} />
-                Dashboard
+                 <p className="line-clamp-1">Dashboard</p>
               </NavLink>
 
               <NavLink to="/hotels" className={linkClass}>
                 <FaHotel size={15} />
-                Liste des hôtels
+                 <p className="line-clamp-1">Liste des hôtels</p>
               </NavLink>
             </nav>
           </div>
@@ -67,7 +67,7 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
               <p className="text-sm text-white">{admin.username}</p>
               <p className="flex items-center gap-2 text-xs text-neutral-300">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                En ligne
+                 <p className="line-clamp-1">En ligne</p>
               </p>
             </div>
           </div>
@@ -77,7 +77,7 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
       {/* MOBILE */}
       <div
         style={{ backgroundImage: `url(${image_bg})` }}
-        className={`fixed top-0 left-0 h-screen w-64 bg-cover bg-center z-50 transform transition-transform duration-300 md:hidden
+        className={`fixed top-0 left-0 h-screen w-64 bg-cover bg-center z-50 transform transition-transform duration-300 lg:hidden
         ${showSideBar ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* TOP */}
@@ -110,7 +110,7 @@ const SideBar = ({ showSideBar ,setShowSideBar }) => {
         {showSideBar && (
         <div
           onClick={() => setShowSideBar(false)}
-          className="fixed inset-0 bg-black/40 z-30 md:hidden"></div>
+          className="fixed inset-0 bg-black/40 z-30 lg:hidden"></div>
       )}
     </>
   );
