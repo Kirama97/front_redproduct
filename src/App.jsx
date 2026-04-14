@@ -9,10 +9,10 @@ import Profil from "./app/pages/Profil";
 import DetailHotel from "./app/pages/DetailHotel";
 import Connexion from "./app/pages/Connexion";
 import ForgetPassword from "./app/pages/ForgetPassword";
-import SendEmailReset from "./app/pages/sendEmailReset";
 import Demande_envoyer from "./app/pages/Demande_envoyer";
 import Compte_creer from "./app/pages/Compte_creer";
 import Compte_activer from "./app/pages/Compte_activer";
+import SendEmailReset from "./app/pages/SendEmailReset";
 
 
 
