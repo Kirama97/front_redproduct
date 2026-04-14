@@ -8,6 +8,13 @@ import Hotels from './app/pages/Hotels';
 import Profil from "./app/pages/Profil";
 import DetailHotel from "./app/pages/DetailHotel";
 import Connexion from "./app/pages/Connexion";
+import ForgetPassword from "./app/pages/ForgetPassword";
+import SendEmailReset from "./app/pages/sendEmailReset";
+import Demande_envoyer from "./app/pages/Demande_envoyer";
+import Compte_creer from "./app/pages/Compte_creer";
+import Compte_activer from "./app/pages/Compte_activer";
+
+
 
 
 function App() {
@@ -18,6 +25,11 @@ const Router = createBrowserRouter([
   { path: "/", element: <Connexion /> },
   { path: "/connexion", element: <Connexion /> },
   { path: "/inscription", element: <Inscription /> },
+  { path: "/reset-password/:token", element: <ForgetPassword/> },
+  { path: "/activate/:token", element: <Compte_activer/> },
+  { path: "/demande_de_reset", element: <SendEmailReset/> },
+  { path: "/demande_envoyée", element: <Demande_envoyer/> },
+  { path: "/compte_creer", element: <Compte_creer/> },
    {
      element: 
     

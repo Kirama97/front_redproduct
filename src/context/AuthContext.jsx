@@ -119,7 +119,6 @@ const AuthProvider = ({ children }) => {
         },
         body: data
       });
-
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -134,6 +133,63 @@ const AuthProvider = ({ children }) => {
   };
 
 
+// 1. Activation de compte (Attrape le token dans l'URL: ex: /activate/:token)
+const activationCompte = async (active_token) => {
+  setLoading(true);
+  try {
+    // Le backend attend { "token": "uuid..." }
+    const reponse = await api.post("/auth/activate/", { 
+      token: active_token 
+    });
+    // Optionnel: Afficher un toast de succès ou rediriger vers /login
+    console.log("Compte activé:", reponse.data);
+    return reponse.data;
+  } catch (error) {
+    console.error("Erreur d'activation:", error.response?.data || error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
+
+// 2. Demande de reset password (Saisie de l'email par l'utilisateur)
+const demande_reset_password = async (emailFourni) => {
+  
+  try {
+   
+    const reponse = await api.post("/auth/password/reset/", { 
+      email: emailFourni 
+    });
+    console.log("Email envoyé:", reponse.data);
+    return reponse.data;
+  } catch (error) {
+    console.error("Erreur demande reset:", error.response?.data || error.message);
+    throw error;
+  } 
+};
+
+// 3. Reset password (Saisie du nouveau mot de passe et token pris dans l'URL)
+const reset_password = async (reset_token, nouveau_password) => {
+  setLoading(true);
+  try {
+    const reponse = await api.post("/auth/password/confirm/", {
+      token: reset_token,
+      new_password: nouveau_password
+    });
+    console.log("Mot de passe réinitialisé:", reponse.data);
+    return reponse.data;
+  } catch (error) {
+    console.error("Erreur reset password:", error.response?.data || error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+  
+
 useEffect(() => {
   fetchutilisateurs();
   fetchProfil();
@@ -147,7 +203,10 @@ useEffect(() => {
     utilisateurs,
     loading,
     fetchProfil,
+    reset_password,
     logout,
+    activationCompte,
+    demande_reset_password,
     admin,
     updateUser
   };

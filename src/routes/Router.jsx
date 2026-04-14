@@ -7,6 +7,7 @@ import Hotels from '../app/pages/Hotels';
 import Profil from "../app/pages/Profil";
 import DetailHotel from "../app/pages/DetailHotel";
 import AppProvider from './../context/AppProvider';
+import ForgetPassword from "../app/pages/ForgetPassword";
 
 
 
@@ -19,6 +20,7 @@ export const Router = createBrowserRouter([
   { path: "/", element: <Connexion /> },
   { path: "/connexion", element: <Connexion /> },
   { path: "/inscription", element: <Inscription /> },
+  { path: "/modifier_mots_de_passe", element: <ForgetPassword/> },
    {
      element: 
     

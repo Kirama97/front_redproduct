@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import image_bg from '../../assets/images/red-bg.png';
 import logo from '../../assets/icone/logo.png';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
+
 
 
 
@@ -12,6 +13,8 @@ const Connexion = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword , setShowPassword] = useState(false)
+
 
   const navigate = useNavigate();
 
@@ -51,7 +54,7 @@ const Connexion = () => {
       className="bg-no-repeat bg-center flex items-center justify-center bg-cover w-full h-screen"
       style={{ backgroundImage: `url(${image_bg})` }}
     >
-      <div className=" max-sm:w-full max-sm:mx-4  sm:w-xl">
+      <div className=" max-sm:w-full max-sm:mx-4  sm:w-80">
         <div className="flex gap-3 justify-center items-center pb-5">
           <img src={logo} alt="Logo" />
           <h1 className="text-white text-md font-bold">RED PRODUCT</h1>
@@ -77,18 +80,16 @@ const Connexion = () => {
 
             <input
               className="w-full outline-none text-md sm:text-xs py-2 border-b border-neutral-300"
-              type="password"
+              type={ showPassword ? "texte" : "password"}
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <div className="flex gap-2 mt-5">
-              <input type="checkbox" />
-              <p className="text-md sm:text-xs text-neutral-700">
-                Gardez-moi connecté
-              </p>
-            </div>
+              <div onClick={() => setShowPassword(!showPassword)} className="flex cursor-pointer gap-2 mt-5">
+                 <input type="checkbox"/>
+                 <p className="text-xs text-neutral-700  hover:text-yellow-400">Afficher le mots de passe</p>
+              </div>
 
             {loading ? (
               <button
@@ -110,9 +111,10 @@ const Connexion = () => {
         </div>
 
         <div className="w-full text-white text-center py-2">
-          <a className="text-md sm:text-[10px] text-yellow-300">
+          <Link to="/demande_de_reset" 
+           className="text-md sm:text-[10px] text-yellow-300 cursor-pointer">
             Mot de passe oublié ?
-          </a>
+          </Link>
           <p className="text-md sm:text-[10px] mt-3">
             Vous n'avez pas de compte ?{" "}
             <NavLink to="/inscription" className="text-yellow-300">

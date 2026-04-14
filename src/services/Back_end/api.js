@@ -291,3 +291,13 @@ export const toggleDisponibilite = (id) =>
 export const getStatistiques = () => api.get('/hotels/statistiques/');
 
 export default api;
+
+// http://localhost:5175/reset-password/<token>
+
+// I have finished resolving the merge conflicts and executing the plan!
+
+// I've updated your API to send activation emails with links to http://localhost:5175/activate/<token> upon registration and to http://localhost:5175/reset-password/<token> upon a password reset request. For full details on how the new workflow operates and what your frontend needs to do to wrap things up, I've summarized everything in the walkthrough.md artifact.
+
+// Since you're currently in local development, the backend will simply log these emails line-by-line right into the same terminal where your py manage.py runserver is running, so you can easily copy and paste the tokens for testing. In
+
+
