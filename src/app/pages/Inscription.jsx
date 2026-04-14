@@ -54,7 +54,7 @@ const Inscription = () => {
                    error.response?.data?.username?.[0] || 
                    "Échec de l'inscription";
 
-           toast.error(errMsg); 
+           toast.error("Ce nom d'utilisateur est déjà pris."); 
 }
 }
 
