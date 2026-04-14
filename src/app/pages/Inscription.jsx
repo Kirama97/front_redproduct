@@ -48,17 +48,16 @@ const Inscription = () => {
             
             toast.success(inscription?.message || "Inscription réussie, vérifiez vos emails !");
         
-        } catch (error) {
-          
+       } catch (error) {
+    
             const errMsg = error.response?.data?.email?.[0] || 
-                           error.response?.data?.username?.[0] || 
-                           "Échec de l'inscription";
+                   error.response?.data?.username?.[0] || 
+                   "Échec de l'inscription";
 
-            toast.error(errMsg);
-            console.log('Status:', error.response?.status);
-            console.log('Erreur complète:', JSON.stringify(error.response?.data, null, 2));
-        }
-    }
+           toast.error(errMsg); 
+}
+}
+
 
   return (
     <div className="bg-no-repeat bg-center flex items-center justify-center bg-cover w-full h-screen" 

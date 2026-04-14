@@ -24,12 +24,7 @@ const AuthProvider = ({ children }) => {
         message: reponse.data?.message || "Inscription réussie",
       };
     } catch (error) {
-      return {
-        success: false,
-        message:
-          error.response?.data.message ||
-          "Erreur lors de l'inscription",
-      };
+     throw error; 
     } finally {
       setLoading(false);
     }
@@ -48,10 +43,7 @@ const AuthProvider = ({ children }) => {
 
     return { success: true, data: reponse.data };
   } catch (error) {
-    return {
-      success: false,
-      message: error.response?.data?.message || "Erreur de connexion",
-    };
+    throw error; 
   } finally {
     setLoading(false);
   }
