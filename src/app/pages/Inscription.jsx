@@ -46,7 +46,7 @@ const Inscription = () => {
            
             navigate("/compte_creer");
             
-            toast.success(inscription?.message || "Inscription réussie, vérifiez vos emails !");
+            toast.success("Inscription réussie");
         
        } catch (error) {
     
