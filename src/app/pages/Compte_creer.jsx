@@ -36,7 +36,8 @@ const  Compte_creer = () => {
               <div className="w-20 h-20 mx-auto rounded-full bg-green-500 flex items-center justify-center">
                   <FaCheck size={20} className='text-white animate-pulse'  />
               </div>
-              <p className="text-lg sm:text-sm text-neutral-700 font-semibold text-center mt-5">Compte créé avec succès. Veuillez vérifier votre e-mail afin d’activer votre compte.</p>
+              <p className="text-lg sm:text-xs text-neutral-700 font-semibold text-center mt-5">Compte créé avec succès. Veuillez vérifier votre e-mail afin d’activer votre compte.</p>
+              <p className=" text-red-600 text-[10px] mt-3 text-center animate-pulse">NB : Le compte sera supprimé s’il n’est pas activé au bout de 15 minutes.</p>
   
           
   
