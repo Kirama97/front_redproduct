@@ -42,7 +42,7 @@ const Connexion = () => {
       const errorMsg = error.response?.data?.detail || 
                        "Email ou mot de passe incorrect";
       
-      toast.error(errorMsg);
+      // toast.error(errorMsg);
     
       setError(errorMsg); 
     }

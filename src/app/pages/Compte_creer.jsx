@@ -39,7 +39,14 @@ const  Compte_creer = () => {
               <p className="text-lg sm:text-xs text-neutral-700 font-semibold text-center mt-5">Compte créé avec succès. Veuillez vérifier votre e-mail afin d’activer votre compte.</p>
               <p className=" text-red-600 text-[10px] mt-3 text-center animate-pulse">NB : Le compte sera supprimé s’il n’est pas activé au bout de 15 minutes.</p>
   
-          
+             <span></span>
+             
+
+
+             <div className="">
+                <img src="" alt="" srcset="" />
+                <span></span>
+             </div>
   
             
           </div>
