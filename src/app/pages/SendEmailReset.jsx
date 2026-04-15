@@ -40,7 +40,7 @@ const handleDemande = async (e) => {
        
         const demande = await demande_reset_password(email);
         navigate("/demande_envoyée");
-        toast.success(demande.message || "Demande envoyée");
+        toast.success("Demande envoyée");
 
     } catch (error) {
         toast.error(error.response?.data?.message || "Echec de la Demande");

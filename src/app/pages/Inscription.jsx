@@ -14,21 +14,18 @@ const Inscription = () => {
     const [showPassword , setShowPassword] = useState(false)
     const navigate = useNavigate()
     
-   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        setError("")
+        setError("") // On réinitialise l'erreur à chaque tentative
 
-       
         if(!nom || !email || !password){
             toast.error('Veuillez remplir tous les champs');
             setError("Tous les champs sont requis");
             return ; 
         }
 
-      
         if(!emailRegex.test(email)){
             toast.error("Adresse email invalide");
             setError("Adresse email invalide");
@@ -36,27 +33,28 @@ const Inscription = () => {
         }
 
         try {
-          
             const inscription = await register({
                 username: nom,
                 email: email,
                 password: password
             });
 
-           
             navigate("/compte_creer");
-            
-            toast.success("Inscription réussie");
+            toast.success(inscription?.message || "Inscription réussie ! Veuillez consulter vos emails.");
         
        } catch (error) {
-    
+            // On récupère le vrai message du backend (ou un message générique)
             const errMsg = error.response?.data?.email?.[0] || 
-                   error.response?.data?.username?.[0] || 
-                   "Échec de l'inscription";
+                           error.response?.data?.username?.[0] || 
+                           error.response?.data?.non_field_errors?.[0] || 
+                           "Une erreur est survenue lors de l'inscription.";
 
-           toast.error("Ce nom d'utilisateur est déjà pris."); 
-}
-}
+            // ON AFFICHE LE VRAI MESSAGE DYNAMIQUE
+            toast.error(errMsg); 
+            // On met aussi à jour l'état "error" pour encadrer les champs en rouge
+            setError(errMsg); 
+       }
+    }
 
 
   return (
@@ -70,24 +68,24 @@ const Inscription = () => {
           </div>
   
           <div className="w-full bg-white px-7 py-10 rounded-sm">
-              <p className="text-lg sm:text-xs text-neutral-700 font-semibold">Inscrivez-vous en tant que Admin</p>
+              <p className="text-lg sm:text-xs text-neutral-700 font-semibold mb-4">Inscrivez-vous en tant que Admin</p>
   
               <form onSubmit={handleRegister} className="flex flex-col gap-2 py-2">
-                {/* nom */}
+                {/* NOM */}
                   <input 
-                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                     type="text" 
                     name="nom" 
-                    placeholder="Nom" 
+                    placeholder="Nom d'utilisateur" 
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
                     required />
 
-                   {/* email */}
+                 {/* EMAIL */}
                   <input 
-                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                    className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
                     type="email" 
@@ -97,40 +95,36 @@ const Inscription = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required />
 
-                  {/* password */}
+                  {/* PASSWORD */}
                   <input
-                     className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1  ${
+                     className={`w-full outline-none text-md sm:text-xs py-3 sm:py-2 placeholder:text-md sm:placeholder:text-[10px] placeholder:text-neutral-400 border-b-1 ${
                         error ? "border-red-500 focus:ring-red-500" : "border-neutral-300"
                     }`} 
-                     type={showPassword ? "text" : "password"} // texte corrigé en text
+                     type={showPassword ? "text" : "password"}
                      name="password" 
                      placeholder="Mot de passe" 
                      value={password}
                      onChange={(e) => setPassword(e.target.value)}
                      required />
                   
-                   <div onClick={() => setShowPassword(!showPassword)} className="flex cursor-pointer gap-2 mt-5">
+                   <div onClick={() => setShowPassword(!showPassword)} className="flex items-center cursor-pointer gap-2 mt-3">
                      <input type="checkbox" checked={showPassword} readOnly />
                      <p className="text-xs text-neutral-700 hover:text-yellow-400">Afficher le mot de passe</p>
                    </div>
   
                    {/* Affichage d'erreur globale */}
-                   {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
+                   {error && <p className="text-xs text-red-500 mt-2 text-center bg-red-50 p-2 rounded">{error}</p>}
   
-                   {
-                    loading ? 
-                    (
-                        <button disabled className="bg-neutral-500 py-2 rounded-lg mt-5 flex items-center justify-center gap-2 text-white cursor-not-allowed text-xs ">
-                            <div className=" w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                             inscription...
+                   {loading ? (
+                        <button disabled className="bg-neutral-500 py-2 rounded-lg mt-5 flex items-center justify-center gap-2 text-white cursor-not-allowed text-xs w-full">
+                            <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                             Inscription en cours...
                         </button>
-                    )
-                     :(
-                        <button type="submit" className="bg-neutral-800 py-2 rounded-lg mt-5 text-white cursor-pointer text-xs hover:bg-neutral-900">
+                    ) : (
+                        <button type="submit" className="bg-neutral-800 py-2 rounded-lg mt-5 text-white cursor-pointer text-xs hover:bg-neutral-900 w-full">
                           S'inscrire
                         </button>
-                    ) 
-                }
+                    )}
               </form>
           </div>
   
