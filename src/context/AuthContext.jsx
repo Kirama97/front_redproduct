@@ -125,15 +125,15 @@ const AuthProvider = ({ children }) => {
   };
 
 
-// 1. Activation de compte (Attrape le token dans l'URL: ex: /activate/:token)
+// 1. Activation de compte 
 const activationCompte = async (active_token) => {
   setLoading(true);
   try {
-    // Le backend attend { "token": "uuid..." }
+
     const reponse = await api.post("/auth/activate/", { 
       token: active_token 
     });
-    // Optionnel: Afficher un toast de succès ou rediriger vers /login
+ 
     console.log("Compte activé:", reponse.data);
     return reponse.data;
   } catch (error) {
@@ -144,7 +144,7 @@ const activationCompte = async (active_token) => {
   }
 };
 
-// 2. Demande de reset password (Saisie de l'email par l'utilisateur)
+
 const demande_reset_password = async (emailFourni) => {
   
   try {
@@ -160,7 +160,6 @@ const demande_reset_password = async (emailFourni) => {
   } 
 };
 
-// 3. Reset password (Saisie du nouveau mot de passe et token pris dans l'URL)
 const reset_password = async (reset_token, nouveau_password) => {
   setLoading(true);
   try {

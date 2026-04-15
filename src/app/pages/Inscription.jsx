@@ -18,7 +18,7 @@ const Inscription = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        setError("") // On réinitialise l'erreur à chaque tentative
+        setError("") 
 
         if(!nom || !email || !password){
             toast.error('Veuillez remplir tous les champs');
@@ -43,15 +43,15 @@ const Inscription = () => {
             toast.success(inscription?.message || "Inscription réussie ! Veuillez consulter vos emails.");
         
        } catch (error) {
-            // On récupère le vrai message du backend (ou un message générique)
+           
             const errMsg = error.response?.data?.email?.[0] || 
                            error.response?.data?.username?.[0] || 
                            error.response?.data?.non_field_errors?.[0] || 
                            "Une erreur est survenue lors de l'inscription.";
 
-            // ON AFFICHE LE VRAI MESSAGE DYNAMIQUE
+           
             toast.error(errMsg); 
-            // On met aussi à jour l'état "error" pour encadrer les champs en rouge
+          
             setError(errMsg); 
        }
     }
