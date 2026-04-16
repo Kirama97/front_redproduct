@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { matchPath } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
 import profil_img from '../../assets/image_profil/user_default.png'
+import { useHotels } from '../../context/HotelContext';
 
 
 
@@ -17,6 +18,7 @@ import profil_img from '../../assets/image_profil/user_default.png'
 
 const TopBar = ({showSideBar ,setShowSideBar}) => {
      const {logout ,admin } = useAuth()
+     const { searchTerm, setSearchTerm } = useHotels();
      const navigate = useNavigate();
      const [showNotification , setShowNotification] = useState(false)
 
@@ -30,6 +32,8 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
         if (matchPath("/hotels", path)) return "Hotels";
         if (matchPath("/dashbord", path)) return "Dashboard";
         if (matchPath("/reservations", path)) return "Réservations";
+        if (matchPath("/utilisateurs", path)) return "Utilisateurs";
+        if (matchPath("/utilisateur/:id", path)) return "Detail Utilisateur";
 
         return "Dashboard";
       };
@@ -51,13 +55,15 @@ const TopBar = ({showSideBar ,setShowSideBar}) => {
         </div>
         <div className="flex items-center gap-4">
             {/* rechercher */}
-           <div className=" hidden sm:flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
+            <div className="hidden sm:flex items-center gap-2 border px-2 rounded-md focus-within:ring-1 focus-within:ring-yellow-400">
                 <CiSearch size={12} />
                 <input 
-                type="text"
-                 placeholder='recherche'
-                 className='placeholder:text-xs outline-none text-xs px-2 py-1 '
-                  />
+                  type="text"
+                  placeholder='recherche'
+                  className='placeholder:text-xs outline-none text-xs px-2 py-1'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
             {/* notification */}
             <div

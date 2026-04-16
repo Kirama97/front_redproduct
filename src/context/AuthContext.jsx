@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem("token") || null
   );
   const [ utilisateurs , setUtilisateurs] = useState([])
+  const [ nombre_utilisateur , setNombre_utilisateur] = useState('')
 
   const [loading, setLoading] = useState(false);
 
@@ -71,13 +72,18 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const reponse = await api.get("/auth/users/");
-      setUtilisateurs(reponse.data);
+      setUtilisateurs(reponse.data.results);
+      setNombre_utilisateur(reponse.data.count );
+      
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
+
+
+  console.log('utilisateurs : ' , utilisateurs)
 
 //  user
   const fetchProfil = async () => {
@@ -197,6 +203,7 @@ useEffect(() => {
     reset_password,
     logout,
     activationCompte,
+    nombre_utilisateur,
     demande_reset_password,
     admin,
     updateUser

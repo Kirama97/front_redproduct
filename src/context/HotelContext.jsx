@@ -7,6 +7,7 @@ export const HotelContext = createContext();
 const HotelProvider = ({ children }) => {
   const { token } = useAuth();
   const [hotels, setHotels] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -107,6 +108,8 @@ const deleteHotel = useCallback(async (id) => {
 
   const value = {
     hotels,
+    searchTerm,
+    setSearchTerm,
     loading,
     unHotel,
     updateHotel,

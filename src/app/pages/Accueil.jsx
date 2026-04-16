@@ -3,9 +3,10 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaEnvelopeOpen } from "react-icons/fa6";
 import { useAuth } from '../../context/AuthContext';
 import { useHotels } from '../../context/HotelContext';
+import { Link } from 'react-router';
 
 const Accueil = () => {
-  const { utilisateurs } = useAuth()
+  const { utilisateurs ,nombre_utilisateur } = useAuth()
   const { hotels } = useHotels()
 
   return (
@@ -66,17 +67,17 @@ const Accueil = () => {
           <div className="w-10 h-10 rounded-full flex items-center justify-center p-2 bg-[#FCC100]">
             <FaUserFriends className='text-xs text-white' />
           </div>
-          <div>
+          <Link to='/utilisateurs'>
             <h4 className='text-neutral-600'>
               <span className='text-xl mr-2 font-semibold group-hover:text-[#FCC100]'>
-                {utilisateurs?.count || 0}
+                {nombre_utilisateur || 0}
               </span>
               Utilisateurs
             </h4>
             <p className='text-xs text-zinc-600'>
               Nombre total d'utilisateurs inscrits
             </p>
-          </div>
+          </Link>
         </div>
 
         {/* 4 - Emails */}

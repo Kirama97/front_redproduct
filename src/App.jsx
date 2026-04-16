@@ -13,6 +13,8 @@ import Demande_envoyer from "./app/pages/Demande_envoyer";
 import Compte_creer from "./app/pages/Compte_creer";
 import Compte_activer from "./app/pages/Compte_activer";
 import SendEmailReset from "./app/pages/SendEmailReset";
+import Utilisateurs from './app/pages/Utilisateurs';
+import Utilisateur from "./app/pages/Utilisateur";
 
 
 
@@ -40,7 +42,9 @@ const Router = createBrowserRouter([
         { path: "/dashboard", element: <Accueil /> },
         { path: "/hotels", element: <Hotels /> },
         { path: "/profil", element: <Profil/> },
-        { path: "/hotel/:id", element: <DetailHotel/> }
+        { path: "/hotel/:id", element: <DetailHotel/> },
+        { path: "/utilisateurs", element: <Utilisateurs/> },
+        { path: "/utilisateur/:id", element: <Utilisateur/> }
      ]
    }
 ]);
