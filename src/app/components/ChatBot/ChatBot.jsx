@@ -59,7 +59,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[1000] font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[1000] font-sans">
       {/* Bouton Toggle */}
       <div 
         className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-400 text-white flex items-center justify-center cursor-pointer shadow-[0_4px_15px_rgba(255,56,92,0.4)] hover:scale-110 active:scale-95 transition-all duration-300"
@@ -74,7 +74,7 @@ const ChatBot = () => {
 
       {/* Fenêtre de Chat */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[380px] h-[70vh] max-h-[600px] bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
+        <div className="absolute bottom-16 sm:bottom-20 right-0 w-[calc(100vw-2rem)] sm:w-[380px] h-[70vh] max-h-[600px] bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
           
           {/* Header */}
           <div className="p-6 bg-yellow-400 text-white flex items-center gap-4 shadow-md">
