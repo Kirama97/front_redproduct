@@ -183,6 +183,31 @@ const reset_password = async (reset_token, nouveau_password) => {
   }
 };
 
+const change_password = async (old_password, new_password) => {
+  if (!token) return;
+  setLoading(true);
+  try {
+    const reponse = await api.put("/auth/password/change/", {
+      old_password: old_password,
+      new_password: new_password
+    });
+    console.log("Mot de passe modifié:", reponse.data);
+    
+    // Update tokens if they are returned by the backend
+    if (reponse.data.tokens) {
+      setToken(reponse.data.tokens.access);
+      localStorage.setItem("token", reponse.data.tokens.access);
+      localStorage.setItem("refresh", reponse.data.tokens.refresh);
+    }
+    
+    return reponse.data;
+  } catch (error) {
+    console.error("Erreur change password:", error.response?.data || error.message);
+    throw error;
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   
@@ -206,7 +231,8 @@ useEffect(() => {
     nombre_utilisateur,
     demande_reset_password,
     admin,
-    updateUser
+    updateUser,
+    change_password
   };
 
   return (

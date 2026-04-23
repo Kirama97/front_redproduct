@@ -20,7 +20,7 @@ const Option = ({id , showEdite , setShowEdite , showDelete , setShowDelete}) =>
 
 
   return (
-    <div className='absolute bottom-10  right-7    flex flex-col gap-3 '>
+    <div className='absolute bottom-10  left-7    flex flex-col gap-3 '>
         <button 
           onClick={() => handleDelete()}
           title='supprimer'
