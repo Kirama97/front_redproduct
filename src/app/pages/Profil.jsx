@@ -242,7 +242,7 @@ useEffect(() => {
                   </div>
                 </div>
 
-                {/* BOUTON CHANGER MDP */}
+                {/*  CHANGER MDP */}
                 <button 
                   type="button" 
                   onClick={handleChangePassword}
