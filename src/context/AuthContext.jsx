@@ -100,7 +100,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // mettre a jour profil  
+  // mettre a jour  profil  
 
   const updateUser = async (data) => {
     if (!token) return;
